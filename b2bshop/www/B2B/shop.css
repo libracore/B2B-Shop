@@ -1,7 +1,7 @@
  /*Accordion controls: */
  /* Style the buttons that are used to open and close the accordion panel */
 .accordion {
-    background-color: #eee;
+    background-color: {{ acc_colour or '#eee' }};/*#eee;*/
     color: #444;
     cursor: pointer;
     padding: 18px;
@@ -14,7 +14,7 @@
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .accordion:hover {
-    background-color: #ccc;
+    background-color: {{ sel_acc_colour or '#ccc' }};/*#ccc;*/
 }
 
 /* Style the accordion panel. Note: hidden by default */
@@ -27,16 +27,35 @@
 /* -------------------------------------------------------------------- */
 
 /* Tab controls: */
-.bottomline {
+.bottomline.specs {
 	border-left: none;
 	border-right: none;
 	border-top: none;
-	border-bottom: 2px solid black !important;
+	border-bottom: 2px solid {{ spec_mark_colour or 'black' }} !important;
+}
+.bottomline.order {
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	border-bottom: 2px solid {{ order_mark_colour or 'black' }} !important;
 }
 
 /* Style tab links */
-.tablink {
-  background-color: white;
+.tablink.specs {
+  background-color: {{ spec_colour or 'white' }};
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	border-bottom: none;
+  float: left;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+.tablink.order {
+  background-color: {{ order_colour or 'white' }};
 	border-left: none;
 	border-right: none;
 	border-top: none;
@@ -49,13 +68,23 @@
   width: 25%;
 }
 
-.tablink:hover {
-  background-color: #777;
+.tablink.order:hover {
+  background-color: {{ order_hover_colour or '#777' }};
+}
+.tablink.specs:hover {
+  background-color: {{ spec_hover_colour or '#777' }};
 }
 
 /* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-  background-color: white;
+.tabcontent.order {
+  background-color: {{ order_colour or 'white' }};
+  /*color: white;*/
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+.tabcontent.specs {
+  background-color: {{ spec_colour or 'white' }};
   /*color: white;*/
   display: none;
   padding: 100px 20px;
@@ -70,8 +99,8 @@
     z-index: 99;
     border: none;
     outline: none;
-    background-color: rgba(146,208,80,1);
-    color: white;
+    background-color: {{ cart_btn_colour or 'rgba(146,208,80,1)' }};
+    color: {{ sel_cart_btn_colour or 'white' }};
     cursor: pointer;
     border-radius: 10px;
     font-size: 35px;
@@ -81,15 +110,15 @@
 #PlaceOrder:hover {
     background-color: transparent;
     font-weight: bold;
-    color: rgba(146,208,80,1);
-    background-color: rgba(0,0,0,0.1);
-    border: 1px solid rgba(146,208,80,1);
+    color: {{ cart_btn_colour or 'rgba(146,208,80,1)' }};
+    background-color: {{ sel_cart_btn_colour or 'rgba(0,0,0,0.1)' }};
+    border: 1px solid {{ sel_cart_btn_colour or 'rgba(146,208,80,1)' }};
 }
  /*-----------------------------------------------------------------------------------*/
   /* Modal Header */
 .modal-header {
     padding: 2px 16px;
-    background-color: #5cb85c;
+    background-color: {{ popup_colour or '#5cb85c' }};
     color: white;
 }
 
@@ -117,9 +146,12 @@
 } 
 
 /*---------------------------------------------------------*/
+{% if tables_hatching_colour %}
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: {{ tables_hatching_colour or '#f2f2f2'}};
 }
+{% endif %}
+
 body {
-		background-image: url("https://rubirosa.libracore.ch//files/Logo.png");
+	background-image: url("{{ bg_img }}");
 }
