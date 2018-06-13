@@ -1,0 +1,125 @@
+ /*Accordion controls: */
+ /* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+    padding: 0 18px;
+    background-color: transparent;/*white;*/
+    display: none;
+    overflow: hidden;
+} 
+/* -------------------------------------------------------------------- */
+
+/* Tab controls: */
+.bottomline {
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	border-bottom: 2px solid black !important;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: white;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	border-bottom: none;
+  float: left;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  background-color: white;
+  /*color: white;*/
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+/* --------------------------------------------------------------------------------- */
+
+#PlaceOrder {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: rgba(146,208,80,1);
+    color: white;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 35px;
+    width: 100px;
+    height: 100px;
+}
+#PlaceOrder:hover {
+    background-color: transparent;
+    font-weight: bold;
+    color: rgba(146,208,80,1);
+    background-color: rgba(0,0,0,0.1);
+    border: 1px solid rgba(146,208,80,1);
+}
+ /*-----------------------------------------------------------------------------------*/
+  /* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+} 
+
+/*---------------------------------------------------------*/
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+body {
+		background-image: url("https://rubirosa.libracore.ch//files/Logo.png");
+}

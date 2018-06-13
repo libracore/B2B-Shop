@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include b2bshop *.css
+recursive-include b2bshop *.csv
+recursive-include b2bshop *.html
+recursive-include b2bshop *.ico
+recursive-include b2bshop *.js
+recursive-include b2bshop *.json
+recursive-include b2bshop *.md
+recursive-include b2bshop *.png
+recursive-include b2bshop *.py
+recursive-include b2bshop *.svg
+recursive-include b2bshop *.txt
+recursive-exclude b2bshop *.pyc
