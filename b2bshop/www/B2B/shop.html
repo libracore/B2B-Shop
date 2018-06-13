@@ -8,7 +8,7 @@
 					{% if items_for_page[main_group][group]["templates"]|len >= 1 %}
 						{% for item in items_for_page[main_group][group]["templates"] %}
 							{% for spec in items_for_page[main_group][group]["templates"][item]["specs"] %}
-							<button class="accordion" onclick="findAndOpen('{{ item }}')">{% if acc_img == "1" %}<img src="{{ spec.image }}" class="media-object" style="width:60px">{% endif %} {{ item }}</button>
+							<button class="accordion" onclick="findAndOpen('{{ item }}')">{% if acc_img == "1" %}<table style="width: 100%;"><tr><td style="width: 10%;"><img src="{{ spec.image }}" class="media-object" style="width:60px"></td><td style="width: 90%;">{{ item }}</td></tr></table>{% else %} {{ item }}{% endif %}</button>
 							{% endfor %}
 							{% if items_for_page[main_group][group]["templates"][item]["attributes"]|len == 1 %}
 								<div class="panel">
