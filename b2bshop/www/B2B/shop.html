@@ -8,13 +8,13 @@
 					{% if items_for_page[main_group][group]["templates"]|len >= 1 %}
 						{% for item in items_for_page[main_group][group]["templates"] %}
 							{% for spec in items_for_page[main_group][group]["templates"][item]["specs"] %}
-							<button class="accordion" onclick="findAndOpen('{{ item }}')"><img src="{{ spec.image }}" class="media-object" style="width:60px"> {{ item }}</button>
+							<button class="accordion" onclick="findAndOpen('{{ item }}')">{% if acc_img == "1" %}<img src="{{ spec.image }}" class="media-object" style="width:60px">{% endif %} {{ item }}</button>
 							{% endfor %}
 							{% if items_for_page[main_group][group]["templates"][item]["attributes"]|len == 1 %}
 								<div class="panel">
-									<button class="tablink" onclick="openPage('specs {{ item }}', this)">Spezifikationen</button>
-									<button id="{{ item }}" class="tablink" onclick="openPage('order {{ item }}', this)" id="defaultOpen">Bestellmatrix</button>
-									<div id="specs {{ item }}" class="tabcontent">
+									<button class="tablink specs" onclick="openPage('specs {{ item }}', this)">Spezifikationen</button>
+									<button id="{{ item }}" class="tablink order" onclick="openPage('order {{ item }}', this)" id="defaultOpen">Bestellmatrix</button>
+									<div id="specs {{ item }}" class="tabcontent specs">
 										{% for spec in items_for_page[main_group][group]["templates"][item]["specs"] %}	
 											<table style="width: 100%">
 												<tr>
@@ -24,7 +24,7 @@
 											</table>
 										{% endfor %}
 									</div>
-									<div id="order {{ item }}" class="tabcontent">
+									<div id="order {{ item }}" class="tabcontent order">
 									  {% for key in items_for_page[main_group][group]["templates"][item]["attributes"] %}
 										{% if items_for_page[main_group][group]["templates"][item]["attributes"][key]|len < 1 %}
 											<div style="background-color:white;"><p><strong>Keine Produkte verfügbar</strong></p></div>
@@ -51,9 +51,9 @@
 								</div>
 							{% elif items_for_page[main_group][group]["templates"][item]["attributes"]|len == 2 %}
 								<div class="panel">
-									<button class="tablink" onclick="openPage('specs {{ item }}', this)">Spezifikationen</button>
-									<button id="{{ item }}" class="tablink" onclick="openPage('order {{ item }}', this)" id="defaultOpen">Bestellmatrix</button>
-									<div id="specs {{ item }}" class="tabcontent">
+									<button class="tablink specs" onclick="openPage('specs {{ item }}', this)">Spezifikationen</button>
+									<button id="{{ item }}" class="tablink order" onclick="openPage('order {{ item }}', this)" id="defaultOpen">Bestellmatrix</button>
+									<div id="specs {{ item }}" class="tabcontent specs">
 										{% for spec in items_for_page[main_group][group]["templates"][item]["specs"] %}
 											<table style="width: 100%">
 												<tr>
@@ -63,7 +63,7 @@
 											</table>
 										{% endfor %}
 									</div>
-									<div id="order {{ item }}" class="tabcontent">
+									<div id="order {{ item }}" class="tabcontent order">
 										<table style="width: 100%">
 											{% for key in items_for_page[main_group][group]["templates"][item]["attributes"] %}
 												{% if loop.index == 1 %}
@@ -141,7 +141,7 @@
 	</div>
 {% endfor %}
 <!-- place order button -->
-<button class="btn" id="PlaceOrder" title="Place Order" onclick="placeOrder()"><i class="fa fa-cart-plus"></i></button> 
+<button class="btn" id="PlaceOrder" title="Add to Cart" onclick="placeOrder()"><i class="fa fa-cart-plus"></i></button> 
 
 <!-- cart modal -->
  <!-- Modal content -->
