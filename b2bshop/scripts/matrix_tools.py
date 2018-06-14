@@ -56,7 +56,8 @@ def get_group_structure():
 def get_all_main_groups():
 	sql_query = """SELECT t1.name
 		FROM `tabItem Group` AS t1
-		WHERE t1.is_group = '1'"""
+		WHERE t1.is_group = '1'
+		AND t1.show_in_website = '1'"""
 	all_main_groups = frappe.db.sql(sql_query, as_dict=True)
 	return all_main_groups
 
@@ -64,7 +65,8 @@ def get_all_sub_groups(main_group):
 	sql_query = """SELECT t1.name
 		FROM `tabItem Group` AS t1
 		WHERE t1.is_group = '0'
-		AND t1.parent_item_group = '{0}'""".format(main_group)
+		AND t1.parent_item_group = '{0}'
+		AND t1.show_in_website = '1'""".format(main_group)
 	all_sub_groups = frappe.db.sql(sql_query, as_dict=True)
 	return all_sub_groups
 
@@ -72,7 +74,8 @@ def get_all_templates(sub_group):
 	sql_query = """SELECT t1.item_code
 		FROM `tabItem` AS t1
 		WHERE t1.item_group = '{0}'
-		AND t1.has_variants = '1'""".format(sub_group)
+		AND t1.has_variants = '1'
+		AND t1.show_in_website = '1'""".format(sub_group)
 	all_templates = frappe.db.sql(sql_query, as_dict=True)
 	return all_templates
 
@@ -97,7 +100,8 @@ def get_possibily_atribute_values(template, attribute):
 def get_all_items_for_attribute_values(template, attribute):
 	sql_query = """SELECT t1.item_code
 		FROM `tabItem` AS t1
-		WHERE t1.variant_of = '{0}'""".format(template)
+		WHERE t1.variant_of = '{0}'
+		AND t1.show_variant_in_website = '1'""".format(template)
 	_items = frappe.db.sql(sql_query, as_dict=True)
 	items = []
 	for _item in _items:
@@ -114,6 +118,7 @@ def get_itemcodes_and_attribute_values_based_on_parent_and_2_dimensional_attribu
 		AND t3.attribute = '{1}'
 		AND t3.attribute_value IS NOT NULL
 		AND t1.variant_of = '{2}'
+		AND t1.show_variant_in_website = '1'
 		ORDER BY t2.attribute_value, t3.attribute_value""".format(attr_1, attr_2, parent)
 
 	master_dict = frappe.db.sql(sql_query, as_dict=True)
@@ -126,6 +131,7 @@ def get_itemcodes_and_attribute_values_based_on_parent_and_1_dimensional_attribu
 		WHERE t2.attribute = '{0}'
 		AND t2.attribute_value IS NOT NULL
 		AND t1.variant_of = '{1}'
+		AND t1.show_variant_in_website = '1'
 		ORDER BY t2.attribute_value""".format(attr_1, parent)
 
 	master_dict = frappe.db.sql(sql_query, as_dict=True)
@@ -135,6 +141,7 @@ def get_specs(template):
 	sql_query = """SELECT t1.description, t1.image
 		FROM `tabItem` AS t1
 		WHERE t1.item_code = '{0}'
-		AND t1.has_variants = '1'""".format(template)
+		AND t1.has_variants = '1'
+		AND t1.show_in_website = '1'""".format(template)
 	specs = frappe.db.sql(sql_query, as_dict=True)
 	return specs
