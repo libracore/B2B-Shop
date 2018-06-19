@@ -77,6 +77,7 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
+	spec_modal.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -84,17 +85,26 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+	if (event.target == spec_modal) {
+        spec_modal.style.display = "none";
+    }
 }
 
 function placeOrder() {
 	var items = document.getElementsByClassName('item-qty');
 	
+	var check_order = false;
 	for (i = 0; i < items.length; i++) {
-        if (items[i].value > 0) {
+		if (items[i].value > 0) {
 			_placeOrder(items[i].id, items[i].value);
-			modal = document.getElementById('goToCart');
+			check_order = true;
 		}
-    }
+	}
+	if (check_order) {
+		modal = document.getElementById('goToCart');
+	} else {
+		modal = document.getElementById('empty');
+	}
 	modal.style.display = "block";
 }
 
@@ -118,6 +128,6 @@ function _placeOrder(_item_code, _qty) {
 
 //spec modal:
 function open_spec_modal(_modal) {
-	modal = document.getElementById(_modal);
-	modal.style.display = "block";
+	spec_modal = document.getElementById(_modal);
+	spec_modal.style.display = "block";
 }
