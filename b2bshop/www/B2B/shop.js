@@ -115,3 +115,9 @@ function _placeOrder(_item_code, _qty) {
 	});
 }
 //------------------------------------------------------------------------------
+
+//spec modal:
+function open_spec_modal(_modal) {
+	modal = document.getElementById(_modal);
+	modal.style.display = "block";
+}
