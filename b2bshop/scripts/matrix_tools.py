@@ -42,7 +42,65 @@ def get_master_dict():
 					master_dict[main_group][sub_group]["templates"][template.item_code]["items"] = get_itemcodes_and_attribute_values_based_on_parent_and_2_dimensional_attributes(attris[0], attris[1], template.item_code)
 					
 	return master_dict
+
+def get_specs_for_modal():
+	master_dict = get_group_structure()
+	for main_group in master_dict:
+		for sub_group in master_dict[main_group]:
+			master_dict[main_group][sub_group]["templates"] = {}
+			templates = get_all_templates(sub_group)
+			for template in templates:
+				master_dict[main_group][sub_group]["templates"][template.item_code] = {}
+				#master_dict[main_group][sub_group]["templates"][template.item_code]["specs"] = get_specs(template.item_code)
+				attributes = get_attributes(template.item_code)
+				for attribute in attributes:
+					if attribute.attribute == 'Colour':
+						if not attribute.attribute in master_dict[main_group][sub_group]["templates"][template.item_code]:
+							master_dict[main_group][sub_group]["templates"][template.item_code][attribute.attribute] = {}
+							_items = get_items_of_template(template.item_code)
+							_master_items = []
+							for items in _items:
+								for item in items:
+									_master_items.append(item)
+							master_items = "', '".join(_master_items)
+							colours = get_colours_of_templateitems(master_items)
+							for _colour in colours:
+								for colour in _colour:
+									master_dict[main_group][sub_group]["templates"][template.item_code][attribute.attribute][colour] = {}
+									spec = get_one_item_spec_per_template_and_colour(template.item_code, colour)
+									master_dict[main_group][sub_group]["templates"][template.item_code][attribute.attribute][colour]["image"] = spec[0].image
+									master_dict[main_group][sub_group]["templates"][template.item_code][attribute.attribute][colour]["description"] = spec[0].description
+
+	return master_dict
 	
+def get_one_item_spec_per_template_and_colour(template, colour):
+	sql_query = """SELECT t1.description, t1.image
+		FROM ((`tabItem` AS t1
+		INNER JOIN `tabItem Variant Attribute` AS t2 ON t1.variant_of = t2.parent)
+		INNER JOIN `tabItem Variant Attribute`AS t3 ON t1.item_code = t3.parent)
+		WHERE t2.parent = '{0}'
+		AND t3.attribute_value = '{1}'
+		AND t1.show_variant_in_website = '1'
+		LIMIT 1""".format(template, colour)
+	spec = frappe.db.sql(sql_query, as_dict=True)
+	return spec
+
+def get_items_of_template(template):
+	sql_query = """SELECT t1.item_code
+		FROM `tabItem` AS t1
+		WHERE t1.variant_of = '{0}'
+		AND t1.show_variant_in_website = '1'""".format(template)
+	all_items = frappe.db.sql(sql_query, as_list=True)
+	return all_items
+	
+def get_colours_of_templateitems(items):
+	sql_query = """SELECT DISTINCT t1.attribute_value
+		FROM `tabItem Variant Attribute` AS t1
+		WHERE t1.parent IN ('{0}')
+		AND t1.attribute = 'Colour'""".format(items)
+	all_items = frappe.db.sql(sql_query, as_list=True)
+	return all_items
+
 def get_group_structure():
 	master_dict = {}
 	main_groups = get_all_main_groups()

@@ -1,0 +1,15 @@
+ <!-- The spec Modal -->
+<div id="{{ ref }}" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>{{ ref }}</h2>
+		</div>
+		<div class="modal-body">
+			<table style="width: 100%;">
+				<td style="width: 10%;"><img src="{{ item_specs[main_group][group]['templates'][item]['Colour'][key]['image'] }}" style="width:100px"></td>
+				<td style="width: 90%;">{{ item_specs[main_group][group]["templates"][item]['Colour'][key]['description'] }}</td>
+			</table>
+		</div>
+	</div>  
+</div>

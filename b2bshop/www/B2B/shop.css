@@ -155,3 +155,8 @@ tr:nth-child(even) {
 body {
 	background-image: url("{{ bg_img }}");
 }
+
+.specmodal {
+	background-color: transparent;
+	border: none;
+}
