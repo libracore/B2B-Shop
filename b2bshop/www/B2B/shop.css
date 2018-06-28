@@ -1,20 +1,25 @@
  /*Accordion controls: */
  /* Style the buttons that are used to open and close the accordion panel */
-.accordion {
+body {
+	background-color: black;
+}
+ .accordion {
     background-color: {{ acc_colour or '#eee' }};/*#eee;*/
-    color: #444;
+    color: white;
     cursor: pointer;
     padding: 18px;
     width: 100%;
     text-align: left;
-    border: none;
+    border: 1px solid white;
     outline: none;
     transition: 0.4s;
+	margin-bottom: 5px;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .accordion:hover {
     background-color: {{ sel_acc_colour or '#ccc' }};/*#ccc;*/
+	color: black;
 }
 
 /* Style the accordion panel. Note: hidden by default */
@@ -97,7 +102,7 @@
     bottom: 20px;
     right: 30px;
     z-index: 99;
-    border: none;
+    border: 1px solid white;
     outline: none;
     background-color: {{ cart_btn_colour or 'rgba(146,208,80,1)' }};
     color: {{ sel_cart_btn_colour or 'white' }};

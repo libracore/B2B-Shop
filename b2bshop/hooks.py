@@ -19,7 +19,7 @@ app_license = "AGPL"
 # app_include_js = "/assets/b2bshop/js/b2bshop.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/b2bshop/css/b2bshop.css"
+web_include_css = "/assets/b2bshop/css/rubirosa.css"
 # web_include_js = "/assets/b2bshop/js/b2bshop.js"
 
 # include js in page
@@ -41,6 +41,23 @@ app_license = "AGPL"
 # role_home_page = {
 #	"Role": "home_page"
 # }
+
+website_context = {
+	"base_template_path": "templates/b2b_base.html"
+}
+
+jenv = {
+	"methods": [
+		"parent_groups:b2bshop.utils.get_all_parent_groups",
+		"sub_groups_of_parent:b2bshop.utils.get_all_sub_groups_of_parent",
+		"all_templates_of_sub_group:b2bshop.utils.get_all_templates_of_sub_group",
+		"check_if_with_size:b2bshop.utils.check_if_with_size",
+		"get_code_and_colors:b2bshop.utils.get_code_and_colors",
+		"get_code_and_sizes:b2bshop.utils.get_code_and_sizes",
+		"get_item_img_and_desc:b2bshop.utils.get_item_img_and_desc"
+	]
+}
+
 
 # Website user home page (by function)
 # get_website_user_home_page = "b2bshop.utils.get_home_page"

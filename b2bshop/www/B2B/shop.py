@@ -47,3 +47,27 @@ def get_settings(setting):
 	for _setting in __setting:
 		setting = _setting.value
 	return setting
+
+def get_all_parent_groups():
+	sql_query = """SELECT `name`
+		FROM `tabItem Group`
+		WHERE `is_group` = '1'"""
+	all_parent_groups = frappe.db.sql(sql_query, as_list=True)
+	return all_parent_groups
+	
+def get_all_sub_groups_of_parent(parent):
+	sql_query = """SELECT `name`
+		FROM `tabItem Group`
+		WHERE `is_group` = '0'
+		AND `parent_item_group` = '{0}'""".format(parent)
+	all_sub_groups = frappe.db.sql(sql_query, as_list=True)
+	return all_sub_groups
+	
+def get_all_templates_of_sub_group(sub_group):
+	sql_query = """SELECT `name`
+		FROM `tabItem`
+		WHERE `has_variants` = '1'
+		AND `item_group` = '{0}'""".format(sub_group)
+	all_templates_of_sub_group = frappe.db.sql(sql_query, as_list=True)
+	return all_templates_of_sub_group
+	

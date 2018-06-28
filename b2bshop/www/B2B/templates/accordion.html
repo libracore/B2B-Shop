@@ -1,7 +1,56 @@
-{% for main_group in items_for_page %}
-	<button class="accordion">{{ main_group }}</button>
+{% for main_group in parent_groups() %}
+	<button class="accordion">{{ main_group[0] }}</button>
 	<div class="panel">
-		{% if items_for_page[main_group]|len >= 1 %}
+	
+		{% for sub_group in sub_groups_of_parent(main_group[0]) %}
+			<button class="accordion">{{ sub_group[0] }}</button>
+			<div class="panel">
+			
+				{% for template in all_templates_of_sub_group(sub_group[0]) %}
+					{% if check_if_with_size(template[0]) %}
+						{% for color in get_code_and_colors(template[0]) %}
+							<button class="accordion">{{ template[0] }} in {{ color[0] }}</button>
+							<div class="panel">
+								<div class="row">
+								{% for item in get_code_and_sizes(template[0], color[0]) %}
+									<div class="col-sm-1 col-xs-3">
+										<center><p style="color: white;">{{ item[0] }}</p><input class="item-qty" type="number" id="{{ item[1] }}" style="max-width: 50px;" value="0" min="0"></center>
+									</div>
+								{% endfor %}
+								</div>
+								<div class="row">
+									{% for specs in get_item_img_and_desc(template[0], color[0]) %}
+									<div class="col-sm-4 col-xs-12">
+									<img src="{{ specs.image }}">
+									</div>
+									<div class="col-sm-8 col-xs-12">
+									{{ specs.description }}
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endfor %}
+					{% else %}
+						<p>without size:</p>
+						{% for color in get_code_and_colors(template[0]) %}
+							<button class="accordion">{{ template[0] }} in {{ color[0] }}</button>
+							<div class="panel">
+							
+							</div>
+						{% endfor %}
+					{% endif %}
+				{% endfor %}
+			
+			</div>
+		{% endfor %}
+	
+	</div>
+	
+	
+	
+	
+	
+		<!--{#{% if items_for_page[main_group]|len >= 1 %}
 			{% for group in items_for_page[main_group] %}
 				<button class="accordion">{{ group }}</button>
 				<div class="panel">
@@ -83,6 +132,10 @@
 														<!-- <th colspan="{{ items_for_page[main_group][group]['templates'][item]['attributes'][key]|len }}">{{ key }}</th>
 														<th colspan="{{ items_for_page[main_group][group]['templates'][item]['attributes'][key]|len }}"></th>
 													</tr> -->
+													
+													
+													
+													<!--
 													{% for _key in items_for_page[main_group][group]["templates"][item]["attributes"] %}
 														{% if loop.index == 1 %}
 															{% for key in items_for_page[main_group][group]["templates"][item]["attributes"][_key] %}
@@ -150,5 +203,5 @@
 		{% else %}
 			<div style="background-color:white;"><p><strong>Keine Produkte verfügbar</strong></p></div>
 		{% endif %}
-	</div>
+	</div>#}-->
 {% endfor %}
