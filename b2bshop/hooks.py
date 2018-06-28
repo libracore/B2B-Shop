@@ -46,6 +46,19 @@ website_context = {
 	"base_template_path": "templates/b2b_base.html"
 }
 
+jenv = {
+	"methods": [
+		"parent_groups:b2bshop.utils.get_all_parent_groups",
+		"sub_groups_of_parent:b2bshop.utils.get_all_sub_groups_of_parent",
+		"all_templates_of_sub_group:b2bshop.utils.get_all_templates_of_sub_group",
+		"check_if_with_size:b2bshop.utils.check_if_with_size",
+		"get_code_and_colors:b2bshop.utils.get_code_and_colors",
+		"get_code_and_sizes:b2bshop.utils.get_code_and_sizes",
+		"get_item_img_and_desc:b2bshop.utils.get_item_img_and_desc"
+	]
+}
+
+
 # Website user home page (by function)
 # get_website_user_home_page = "b2bshop.utils.get_home_page"
 
