@@ -1,0 +1,32 @@
+.rubi-1 {
+	min-height: 70px;
+	margin-left: 0px;
+	padding-left: 70px;
+	padding-right: 0px;
+}
+.rubi-2 {
+	padding-top: 15px;
+}
+.rubi-3 {
+	background-color: black;
+	min-height: 100px;
+}
+.rubi-4 {
+	text-align: center;
+}
+.rubi-5 {
+	text-align: center;
+	display: inline-block;
+	width: 42px;
+	height: 42px;
+	border: 2px solid #fff;
+}
+.rubi-6 {
+	text-align: center;
+	color: #fff;
+	font-size: 20px;
+	line-height: 38px;
+}
+.rubi-7 {
+	color: white;
+}
