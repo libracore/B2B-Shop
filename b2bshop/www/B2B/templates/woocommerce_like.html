@@ -11,11 +11,12 @@
 		{% for item in get_all_items_of_refsize_for_webshop() %}
 			<div class="col-xs-12 col-sm-4">
 				{% for item_detail in get_item_details(item[0]) %}
-					<div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
+					<a onclick="open_order_modal('{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
 						<img src="{{ item_detail[0] }}" alt="Avatar" class="img-image">
-						<div class="img-overlay"><button class="clear-btn" onclick="open_order_modal('{{ item[0] }}')">More Information / Order</button></div>
-					</div> 
-					<div><span>{{ item_detail[1] }} /// {{ item_detail[2] }}</span></div>
+						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
+						<center><span>{{ item_detail[1] }} {{ item_detail[2] }}</span></center>
+					</div></a>
+					
 				{% endfor %}
 			</div>
 			{% for item_detail in get_item_details(item[0]) %}
@@ -28,12 +29,12 @@
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-sm-4 col-xs-12">
-									<div class="img-magnifier-container hidden-xs">
+									<!-- {#<div class="img-magnifier-container hidden-xs">
 									  <img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Avatar">
 									</div>
-									<div class="hidden-sm hidden-md hidden-lg">
+									<div class="hidden-sm hidden-md hidden-lg">#} -->
 										<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Avatar">
-									</div>
+									<!-- </div> -->
 								</div>
 								<div class="col-sm-8 col-xs-12" style="min-height:200px;">
 									{{ item_detail[3] }}
