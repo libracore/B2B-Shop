@@ -1,0 +1,66 @@
+<div class="row">
+	<div id="myBtnContainer">
+	  <button class="filterdiv-btn active" onclick="filterSelection('all')"> Show all</button>
+	  {% for group in get_all_item_groups() %}
+		<button class="filterdiv-btn" onclick="filterSelection('{{ group[0] }}')"> {{ group[0] }}</button>
+	  {% endfor %}
+	</div>
+</div>
+<div class="row">
+	<div class="filterdiv-container">
+		{% for item in get_all_items_of_refsize_for_webshop() %}
+			<div class="col-xs-12 col-sm-4">
+				{% for item_detail in get_item_details(item[0]) %}
+					<div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
+						<img src="{{ item_detail[0] }}" alt="Avatar" class="img-image">
+						<div class="img-overlay"><button class="clear-btn" onclick="open_order_modal('{{ item[0] }}')">More Information / Order</button></div>
+					</div> 
+					<div><span>{{ item_detail[1] }} /// {{ item_detail[2] }}</span></div>
+				{% endfor %}
+			</div>
+			{% for item_detail in get_item_details(item[0]) %}
+				 <!-- item Modal -->
+				<div id="{{ item[0] }}" class="modal">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2>{{ item_detail[1] }}</h2>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-sm-4 col-xs-12">
+									<div class="img-magnifier-container hidden-xs">
+									  <img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Avatar">
+									</div>
+									<div class="hidden-sm hidden-md hidden-lg">
+										<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Avatar">
+									</div>
+								</div>
+								<div class="col-sm-8 col-xs-12" style="min-height:200px;">
+									{{ item_detail[3] }}
+									<div class="hidden-xs" style="min-height: 300px;"></div>
+										<div class="row">
+											{% for size in get_all_corresponding_sizes(item[0]) %}
+												<div class="col-sm-1 col-xs-3">
+													<center><p>{{ size[0] }}</p><input class="item-qty" type="number" id="{{ size[1] }}" style="max-width: 50px;" value="0" min="0"></center>
+												</div>
+											{% endfor %}
+											<div class="col-sm-3 col-xs-12">
+												<p><br></p><button style="background-color: black; color: white; border: none; padding: 3px;">Add to cart</button>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>  
+				</div>
+			{% endfor %}
+		{% endfor %}
+	</div>
+</div>
+
+<style>
+{% include "b2bshop/www/B2B/templates/woocommerce_like.css" %}
+</style>
+<script>
+{% include "b2bshop/www/B2B/templates/woocommerce_like.js" %}
+</script>

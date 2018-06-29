@@ -1,0 +1,125 @@
+.filterdiv-container {
+    overflow: hidden;
+}
+.img-container.filterDiv {
+    display: none; /* Hidden by default */
+}
+/* The "show" class is added to the filtered elements */
+.show {
+    display: block;
+}
+/* Style the buttons */
+.filterdiv-btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  width: 120px;
+  margin-bottom: 5px;
+}
+/* Add a light grey background on mouse-over */
+.filterdiv-btn:hover {
+  background-color: #ddd;
+}
+/* Add a dark background to the active button */
+.filterdiv-btn.active {
+  background-color: #666;
+  color: white;
+}
+body {
+	background-color: white;
+}
+* {box-sizing: border-box}
+/* Container needed to position the overlay. Adjust the width as needed */
+.img-container {
+  position: relative;
+  width: 100%;
+}
+/* Make the image to responsive */
+.img-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* The overlay effect - lays on top of the container and over the image */
+.img-overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+/* When you mouse over the container, fade in the overlay title */
+.img-container:hover .img-overlay {
+  opacity: 1;
+}
+.clear-btn {
+	background-color: transparent;
+	border: none;
+}
+ /*-----------------------------------------------------------------------------------*/
+  /* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    background-color: black;
+    color: white;
+}
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.img-magnifier-container {
+  position: relative;
+}
+
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 150px;
+  height: 150px;
+}
