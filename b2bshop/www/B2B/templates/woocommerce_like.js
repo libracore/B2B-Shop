@@ -51,7 +51,7 @@ function open_order_modal(item) {
 	order_modal = document.getElementById(item);
 	order_modal.style.display = "block";
 	
-	magnify("myimage-"+item, 2);
+	/*magnify("myimage-"+item, 2);*/
 }
 
 // When the user clicks anywhere outside of the modal, close it

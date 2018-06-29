@@ -71,6 +71,7 @@ body {
     padding: 2px 16px;
     background-color: black;
     color: white;
+	height: 100px;
 }
 /* Modal Body */
 .modal-body {padding: 2px 16px;}

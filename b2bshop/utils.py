@@ -40,7 +40,7 @@ def get_all_corresponding_sizes(item):
 	for item in _all_items:
 		all_items.append(item[0])
 	
-	sql_query = """SELECT t1.`attribute_value`, t1.`parent`
+	sql_query = """SELECT DISTINCT t1.`attribute_value`, t1.`parent`
 		FROM `tabItem Variant Attribute` AS t1
 		WHERE t1.`attribute` = 'Size'
 		AND t1.`parent` IN ({0})""".format("'"+"', '".join(all_items)+"'")
