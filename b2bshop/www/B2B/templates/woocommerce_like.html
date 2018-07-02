@@ -33,7 +33,29 @@
 									  <img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Avatar">
 									</div>
 									<div class="hidden-sm hidden-md hidden-lg">#} -->
-										<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Avatar">
+										{% set slideshows = get_item_slideshow(item[0]) %}
+										{% for slideshow in slideshows %}
+											{% if slideshow[0] == None %}
+												<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Avatar">
+											{% else %}
+												<div class="slideshow-container">
+													{% for image in get_slideshow_images(slideshow[0]) %}
+														<div class="mySlides">
+															<img src="{{ image[0] }}" style="width:100%">
+														</div>
+													{% endfor %}
+													<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+													<a class="next" onclick="plusSlides(1)">&#10095;</a>
+													<div class="row">
+														{% for image in get_slideshow_images(slideshow[0]) %}
+															<div class="column">
+																<img class="demo cursor" src="{{ image[0] }}" style="width:100%" onclick="currentSlide({{ loop.index }})" alt="{{ image[0] }}">
+															</div>
+														{% endfor %}
+													</div>
+												</div>
+											{% endif %}
+										{% endfor %}
 									<!-- </div> -->
 								</div>
 								<div class="col-sm-8 col-xs-12" style="min-height:200px;">
@@ -47,7 +69,7 @@
 												</div>
 											{% endfor %}
 											<div class="col-sm-3 col-xs-12">
-												<p><br></p><button style="background-color: black; color: white; border: none; padding: 3px;">Add to cart</button>
+												<p><br></p><button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('{{ item[0] }}')">Add to cart</button>
 											</div>
 										</div>
 								</div>
@@ -59,7 +81,32 @@
 		{% endfor %}
 	</div>
 </div>
-
+<!-- cart modal -->
+ <!-- Modal content -->
+ <!-- The Check Modal -->
+<div id="goToCart" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>{{ _("Your Order is ready") }}</h2>
+		</div>
+		<div class="modal-body">
+			<p>{{ _("You can now complete your purchase in the") }} <a href="/cart">{{ _("shopping cart.") }}</a></p>
+		</div>
+	</div>  
+</div> 
+ <!-- The Empty Modal -->
+<div id="empty" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>{{ _("Please select at least one item") }}</h2>
+		</div>
+		<div class="modal-body">
+			<p>{{ _("To add items to your shopping cart, select at least one item") }}</a></p>
+		</div>
+	</div>  
+</div> 
 <style>
 {% include "b2bshop/www/B2B/templates/woocommerce_like.css" %}
 </style>
