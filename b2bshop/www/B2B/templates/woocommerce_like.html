@@ -47,7 +47,7 @@
 												</div>
 											{% endfor %}
 											<div class="col-sm-3 col-xs-12">
-												<p><br></p><button style="background-color: black; color: white; border: none; padding: 3px;">Add to cart</button>
+												<p><br></p><button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('{{ item[0] }}')">Add to cart</button>
 											</div>
 										</div>
 								</div>
@@ -59,7 +59,32 @@
 		{% endfor %}
 	</div>
 </div>
-
+<!-- cart modal -->
+ <!-- Modal content -->
+ <!-- The Check Modal -->
+<div id="goToCart" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>{{ _("Your Order is ready") }}</h2>
+		</div>
+		<div class="modal-body">
+			<p>{{ _("You can now complete your purchase in the") }} <a href="/cart">{{ _("shopping cart.") }}</a></p>
+		</div>
+	</div>  
+</div> 
+ <!-- The Empty Modal -->
+<div id="empty" class="modal">
+	<div class="modal-content">
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>{{ _("Please select at least one item") }}</h2>
+		</div>
+		<div class="modal-body">
+			<p>{{ _("To add items to your shopping cart, select at least one item") }}</a></p>
+		</div>
+	</div>  
+</div> 
 <style>
 {% include "b2bshop/www/B2B/templates/woocommerce_like.css" %}
 </style>

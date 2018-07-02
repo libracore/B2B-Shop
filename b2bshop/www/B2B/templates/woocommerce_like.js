@@ -124,3 +124,41 @@ function magnify(imgID, zoom) {
     return {x : x, y : y};
   }
 }
+
+function placeOrder(ref_item) {
+	console.log(ref_item);
+	var ref_container = document.getElementById(ref_item);
+	var items = ref_container.getElementsByClassName('item-qty');
+	
+	var check_order = false;
+	for (i = 0; i < items.length; i++) {
+		if (items[i].value > 0) {
+			_placeOrder(items[i].id, items[i].value);
+			check_order = true;
+		}
+	}
+	if (check_order) {
+		modal = document.getElementById('goToCart');
+		modal.style.display = "block";
+	} else {
+		modal = document.getElementById('empty');
+		modal.style.display = "block";
+	}
+}
+
+function _placeOrder(_item_code, _qty) {
+	frappe.provide('erpnext.shopping_cart');
+
+	erpnext.shopping_cart.update_cart({
+		item_code: _item_code,
+		qty: _qty,
+		callback: function(r) {
+			if(!r.exc) {
+								
+			} else {
+					window.alert("oops");
+			}
+		},
+		btn: this,
+	});
+}
