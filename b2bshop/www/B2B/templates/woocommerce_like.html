@@ -14,7 +14,7 @@
 					<a onclick="open_order_modal('{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
 						<img src="{{ item_detail[0] }}" alt="Avatar" class="img-image">
 						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
-						<center><span>{{ item_detail[1] }} {{ item_detail[2] }}</span></center>
+						<center><span>{{ item_detail[1] }}</span></center>
 					</div></a>
 					
 				{% endfor %}
@@ -42,7 +42,8 @@
 										<div class="row">
 											{% for size in get_all_corresponding_sizes(item[0]) %}
 												<div class="col-sm-1 col-xs-3">
-													<center><p>{{ size[0] }}</p><input class="item-qty" type="number" id="{{ size[1] }}" style="max-width: 50px;" value="0" min="0"></center>
+													<center><p>{{ size[0] }}</p><input class="item-qty" type="number" id="{{ size[1] }}" style="max-width: 50px;" value="0" min="0"><br>
+														{{ get_item_stock(size[1]) }}</center>
 												</div>
 											{% endfor %}
 											<div class="col-sm-3 col-xs-12">

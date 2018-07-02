@@ -1,4 +1,5 @@
 import frappe
+from erpnext.stock.utils import get_bin
 
 
 def get_all_items_of_refsize_for_webshop():
@@ -72,3 +73,20 @@ def get_color(item):
 		AND `attribute` = 'Colour'""".format(item)
 	color = frappe.db.sql(sql_query, as_list=True)
 	return color
+
+def get_warehouses():
+	sql_query = """SELECT `name`
+		FROM `tabWarehouse`"""
+	warehouses = frappe.db.sql(sql_query, as_list=True)
+	return warehouses
+
+def get_item_stock(item):
+	qty = 0
+	warehouses = get_warehouses()
+	for warehouse in warehouses:
+		bin = get_bin(item, warehouse[0])
+		qty = qty + bin.actual_qty
+	if qty > 0:
+		return '<span style="color: green;">In Stock</span>'
+	else:
+		return '<span style="color: red;">Not In Stock</span>'

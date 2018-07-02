@@ -52,7 +52,8 @@ jenv = {
 		"get_item_details:b2bshop.utils.get_item_details",
 		"get_all_item_groups:b2bshop.utils.get_all_item_groups",
 		"get_parent_group:b2bshop.utils.get_parent_group",
-		"get_all_corresponding_sizes:b2bshop.utils.get_all_corresponding_sizes"
+		"get_all_corresponding_sizes:b2bshop.utils.get_all_corresponding_sizes",
+		"get_item_stock:b2bshop.utils.get_item_stock"
 	]
 }
 
