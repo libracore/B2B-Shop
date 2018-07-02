@@ -90,3 +90,17 @@ def get_item_stock(item):
 		return '<span style="color: green;">In Stock</span>'
 	else:
 		return '<span style="color: red;">Not In Stock</span>'
+
+def get_item_slideshow(item):
+	sql_query = """SELECT `slideshow`
+		FROM `tabItem`
+		WHERE `name` = '{0}'""".format(item)
+	slideshow = frappe.db.sql(sql_query, as_list=True)
+	return slideshow
+
+def get_slideshow_images(slideshow):
+	sql_query = """SELECT `image`
+		FROM `tabWebsite Slideshow Item`
+		WHERE `parent` = '{0}'""".format(slideshow)
+	slideshow_images = frappe.db.sql(sql_query, as_list=True)
+	return slideshow_images
