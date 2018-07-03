@@ -61,7 +61,7 @@ function open_order_modal(item) {
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     modals = document.getElementsByClassName("modal")
-	for (var i = 0; i < btns.length; i++) {
+	for (var i = 0; i < modals.length; i++) {
 		if (event.target == modals[i]) {
 			modals[i].style.display = "none";
 		}
