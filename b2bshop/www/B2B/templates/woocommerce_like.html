@@ -1,4 +1,10 @@
-<div class="row">
+<div class="row wartesymbol">
+	<div class="col-xs-12">
+		<center><i class="fa fa-spinner fa-spin" style="font-size:100px;"></i>
+		<p>{{ _("Please wait, the page is being loaded") }}</p></center>
+	</div>
+</div>
+<div class="row libra-special">
 	<div id="myBtnContainer">
 	  <button class="filterdiv-btn active" onclick="filterSelection('all')"> Show all</button>
 	  {% for group in get_all_item_groups() %}
@@ -6,7 +12,7 @@
 	  {% endfor %}
 	</div>
 </div>
-<div class="row">
+<div class="row libra-special">
 	<div class="filterdiv-container">
 		{% for item in get_all_items_of_refsize_for_webshop() %}
 			<div class="col-xs-12 col-sm-4">
