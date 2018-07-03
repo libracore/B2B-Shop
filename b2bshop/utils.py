@@ -75,8 +75,8 @@ def get_color(item):
 	return color
 
 def get_warehouses():
-	sql_query = """SELECT `name`
-		FROM `tabWarehouse`"""
+	sql_query = """SELECT `warehouse`
+		FROM `tabB2B Warehouse`"""
 	warehouses = frappe.db.sql(sql_query, as_list=True)
 	return warehouses
 
