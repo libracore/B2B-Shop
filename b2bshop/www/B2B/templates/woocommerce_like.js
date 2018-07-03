@@ -1,11 +1,4 @@
-window.onload = function () {
-	var inhalt = document.getElementsByClassName("libra-special");
-	var wartesymbol = document.getElementsByClassName("wartesymbol");
-	wartesymbol[0].style.display = "none";
-	for (var i = 0; i < inhalt.length; i++) {
-		inhalt[i].style.display = "block";
-	}
-}
+
 
 /* Filter section */
 /*---------------------------------------------------------*/
