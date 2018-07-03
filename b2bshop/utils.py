@@ -104,3 +104,20 @@ def get_slideshow_images(slideshow):
 		WHERE `parent` = '{0}'""".format(slideshow)
 	slideshow_images = frappe.db.sql(sql_query, as_list=True)
 	return slideshow_images
+
+def get_all_items_without_size():
+	sql_query = """SELECT DISTINCT `parent`
+		FROM `tabItem Variant Attribute`
+		WHERE `attribute` <> 'Size'
+		AND `attribute` <> 'Colour'"""
+	_all_items_without_size = frappe.db.sql(sql_query, as_list=True)
+	all_items = []
+	for item in _all_items_without_size:
+		all_items.append(item[0])
+	sql_query = """SELECT DISTINCT t1.`name`
+		FROM `tabItem` AS t1
+		WHERE t1.`name` IN ({0})
+		AND t1.`has_variants` = '0'
+		AND t1.`show_variant_in_website` = '1'""".format("'"+"', '".join(all_items)+"'")
+	all_items_without_size = frappe.db.sql(sql_query, as_list=True)
+	return all_items_without_size
