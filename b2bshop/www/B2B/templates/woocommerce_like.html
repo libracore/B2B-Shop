@@ -1,10 +1,4 @@
-<div class="row wartesymbol">
-	<div class="col-xs-12">
-		<center><i class="fa fa-spinner fa-spin" style="font-size:100px;"></i>
-		<p>{{ _("Please wait, the page is being loaded") }}</p></center>
-	</div>
-</div>
-<div class="row libra-special">
+<div class="row">
 	<div id="myBtnContainer">
 	  <button class="filterdiv-btn active" onclick="filterSelection('all')"> Show all</button>
 	  {% for group in get_all_item_groups() %}
@@ -12,7 +6,7 @@
 	  {% endfor %}
 	</div>
 </div>
-<div class="row libra-special">
+<div class="row">
 	<div class="filterdiv-container">
 		{% for item in get_all_items_of_refsize_for_webshop() %}
 			<div class="col-xs-12 col-sm-4">
@@ -83,18 +77,6 @@
 						</div>
 					</div>  
 				</div>
-				{% if loop.last %}
-					<script>
-						window.onload = function() {
-							var inhalt = document.getElementsByClassName("libra-special");
-							var wartesymbol = document.getElementsByClassName("wartesymbol");
-							wartesymbol[0].style.display = "none";
-							for (var i = 0; i < inhalt.length; i++) {
-								inhalt[i].style.display = "block";
-							}
-						}
-					</script>
-				{% endif %}
 			{% endfor %}
 		{% endfor %}
 	</div>
