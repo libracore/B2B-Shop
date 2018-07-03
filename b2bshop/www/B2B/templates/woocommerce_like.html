@@ -8,11 +8,12 @@
 </div>
 <div class="row">
 	<div class="filterdiv-container">
+		<!-- Items with attribute Size -->
 		{% for item in get_all_items_of_refsize_for_webshop() %}
 			<div class="col-xs-12 col-sm-4">
 				{% for item_detail in get_item_details(item[0]) %}
 					<a onclick="open_order_modal('{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
-						<img src="{{ item_detail[0] }}" alt="Avatar" class="img-image">
+						<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
 						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
 						<center><span>{{ item_detail[1] }}</span></center>
 					</div></a>
@@ -30,13 +31,13 @@
 							<div class="row">
 								<div class="col-sm-4 col-xs-12">
 									<!-- {#<div class="img-magnifier-container hidden-xs">
-									  <img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Avatar">
+									  <img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
 									</div>
 									<div class="hidden-sm hidden-md hidden-lg">#} -->
 										{% set slideshows = get_item_slideshow(item[0]) %}
 										{% for slideshow in slideshows %}
 											{% if slideshow[0] == None %}
-												<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Avatar">
+												<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
 											{% else %}
 												<div class="slideshow-container">
 													{% for image in get_slideshow_images(slideshow[0]) %}
@@ -72,6 +73,76 @@
 												<p><br></p><button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('{{ item[0] }}')">Add to cart</button>
 											</div>
 										</div>
+								</div>
+							</div>
+						</div>
+					</div>  
+				</div>
+			{% endfor %}
+		{% endfor %}
+		<!-- Items without attribute Size -->
+		{% for item in get_all_items_without_size() %}
+			<div class="col-xs-12 col-sm-4">
+				{% for item_detail in get_item_details(item[0]) %}
+					<a onclick="open_order_modal('{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
+						<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
+						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
+						<center><span>{{ item_detail[1] }}</span></center>
+					</div></a>
+					
+				{% endfor %}
+			</div>
+			{% for item_detail in get_item_details(item[0]) %}
+				 <!-- item Modal -->
+				<div id="{{ item[0] }}" class="modal">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2>{{ item_detail[1] }}</h2>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-sm-4 col-xs-12">
+									<!-- {#<div class="img-magnifier-container hidden-xs">
+									  <img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
+									</div>
+									<div class="hidden-sm hidden-md hidden-lg">#} -->
+										{% set slideshows = get_item_slideshow(item[0]) %}
+										{% for slideshow in slideshows %}
+											{% if slideshow[0] == None %}
+												<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
+											{% else %}
+												<div class="slideshow-container">
+													{% for image in get_slideshow_images(slideshow[0]) %}
+														<div class="mySlides">
+															<img src="{{ image[0] }}" style="width:100%;">
+														</div>
+													{% endfor %}
+													<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+													<a class="next" onclick="plusSlides(1)">&#10095;</a>
+													<div class="row">
+														{% for image in get_slideshow_images(slideshow[0]) %}
+															<div class="column">
+																<img class="demo cursor" src="{{ image[0] }}" style="width:100%" onclick="currentSlide({{ loop.index }})" alt="{{ image[0] }}">
+															</div>
+														{% endfor %}
+													</div>
+												</div>
+											{% endif %}
+										{% endfor %}
+									<!-- </div> -->
+								</div>
+								<div class="col-sm-8 col-xs-12" style="min-height:200px;">
+									{{ item_detail[3] }}
+									<div class="hidden-xs" style="min-height: 300px;"></div>
+									<div class="row">
+										<div class="col-sm-1 col-xs-3">
+											<center><p>Quantity</p><input class="item-qty" type="number" id="{{ item[0] }}" style="max-width: 50px;" value="0" min="0"><br>
+												{{ get_item_stock(item[0]) }}</center>
+										</div>
+										<div class="col-sm-3 col-xs-12">
+											<p><br></p><button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('{{ item[0] }}')">Add to cart</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
