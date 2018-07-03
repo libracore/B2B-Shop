@@ -13,7 +13,7 @@ def get_all_items_of_refsize_for_webshop():
 	return all_items
 
 def get_item_details(item):
-	sql_query = """SELECT t1.`image`, t1.`item_name`, t1.`item_group`, t1.`description`
+	sql_query = """SELECT t1.`image`, t1.`item_name`, t1.`item_group`, t1.`web_long_description`
 		FROM `tabItem` AS t1
 		WHERE t1.`name` = '{0}'""".format(item)
 	item_details = frappe.db.sql(sql_query, as_list=True)
