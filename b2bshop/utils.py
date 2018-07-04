@@ -87,9 +87,9 @@ def get_item_stock(item):
 		bin = get_bin(item, warehouse[0])
 		qty = qty + bin.actual_qty
 	if qty > 0:
-		return '<span style="color: green;">In Stock</span>'
+		return '<span style="color: green;"><i class="fa fa-check"></i></span>'
 	else:
-		return '<span style="color: red;">Not In Stock</span>'
+		return '<span style="color: red;"><i class="fa fa-times"></i></span>'
 
 def get_item_slideshow(item):
 	sql_query = """SELECT `slideshow`
