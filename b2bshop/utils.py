@@ -47,7 +47,8 @@ def get_all_corresponding_sizes(item):
 		INNER JOIN `tabItem Variant Attribute` AS t2 ON t1.`parent` = t2.`parent`
 		WHERE t1.`attribute` = 'Size'
 		AND t1.`parent` IN ({0})
-		AND t2.`attribute_value` = '{1}'""".format("'"+"', '".join(all_items)+"'", color[0][0])
+		AND t2.`attribute_value` = '{1}'
+		ORDER BY t1.`attribute_value` ASC""".format("'"+"', '".join(all_items)+"'", color[0][0])
 	all_corresponding_sizes = frappe.db.sql(sql_query, as_list=True)
 	return all_corresponding_sizes
 	
