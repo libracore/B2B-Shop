@@ -143,7 +143,7 @@ window.onclick = function(event) {
 /* place order section */
 /*----------------------------------------------------------------------------------------------*/
 function placeOrder(ref_item) {
-	console.log(ref_item);
+	//console.log(ref_item);
 	var ref_container = document.getElementById(ref_item);
 	var items = ref_container.getElementsByClassName('item-qty');
 	
