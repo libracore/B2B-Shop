@@ -196,7 +196,7 @@ function _placeOrder(_item_code, _qty) {
 	});
 }
 function doPlaceOrderWithTimeout(item, value) {
-	setTimeout(function(){ _placeOrder(item, value); }, 1000);
+	setTimeout(function(){ _placeOrder(item, value); }, 10000);
 }
 
 /*------------------------------------------------------------------------------------------------------*/
