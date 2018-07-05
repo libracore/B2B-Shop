@@ -37,18 +37,18 @@
 											{% if slideshow[0] == None %}
 												<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
 											{% else %}
-												<div class="slideshow-container">
+												<div class="slideshow-container-{{ item[0] }}">
 													{% for image in get_slideshow_images(slideshow[0]) %}
-														<div class="mySlides">
+														<div class="mySlides"{% if loop.first %} style="display: block;"{% endif %}>
 															<img src="{{ image[0] }}" style="width:100%;">
 														</div>
 													{% endfor %}
-													<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-													<a class="next" onclick="plusSlides(1)">&#10095;</a>
+													<a class="prev" onclick="plusSlides(-1, '{{ item[0] }}')">&#10094;</a>
+													<a class="next" onclick="plusSlides(1, '{{ item[0] }}')">&#10095;</a>
 													<div class="row">
 														{% for image in get_slideshow_images(slideshow[0]) %}
 															<div class="column">
-																<img class="demo cursor" src="{{ image[0] }}" style="width:100%; padding-left: 15px;" onclick="currentSlide({{ loop.index }})" alt="{{ image[0] }}">
+																<img class="demo cursor{% if loop.first %} active{% endif %}" src="{{ image[0] }}" style="width:100%; padding-left: 15px;" onclick="currentSlide({{ loop.index }}, '{{ item[0] }}')" alt="{{ image[0] }}">
 															</div>
 														{% endfor %}
 													</div>
@@ -110,7 +110,7 @@
 											{% else %}
 												<div class="slideshow-container">
 													{% for image in get_slideshow_images(slideshow[0]) %}
-														<div class="mySlides">
+														<div class="mySlides"{% if loop.first %} style="display: block;"{% endif %}>
 															<img src="{{ image[0] }}" style="width:100%;">
 														</div>
 													{% endfor %}
@@ -119,7 +119,7 @@
 													<div class="row">
 														{% for image in get_slideshow_images(slideshow[0]) %}
 															<div class="column">
-																<img class="demo cursor" src="{{ image[0] }}" style="width:100%" onclick="currentSlide({{ loop.index }})" alt="{{ image[0] }}">
+																<img class="demo cursor{% if loop.first %} active{% endif %}" src="{{ image[0] }}" style="width:100%" onclick="currentSlide({{ loop.index }})" alt="{{ image[0] }}">
 															</div>
 														{% endfor %}
 													</div>

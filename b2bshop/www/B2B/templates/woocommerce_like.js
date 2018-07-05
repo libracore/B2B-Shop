@@ -183,23 +183,25 @@ function _placeOrder(_item_code, _qty) {
 
 /* slideshow section */
 /*-------------------------------------------------------------------------------------------------------*/
-var slideIndex = 1;
-showSlides(slideIndex);
+//var slideIndex = 1;
+//showSlides(slideIndex);
 
 // Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
+function plusSlides(n, item) {
+  showSlides(slideIndex += n, item);
 }
 
 // Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
+function currentSlide(n, item) {
+  showSlides(slideIndex = n, item);
 }
 
-function showSlides(n) {
+function showSlides(n, item) {
   var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
+  var slide_parent = document.getElementsByClassName("slideshow-container-" + item);
+  console.log(item);
+  var slides = slide_parent[0].getElementsByClassName("mySlides");
+  var dots = slide_parent[0].getElementsByClassName("demo");
   /*var captionText = document.getElementById("caption");*/
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}
