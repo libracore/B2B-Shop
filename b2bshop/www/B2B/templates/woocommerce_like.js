@@ -163,8 +163,10 @@ function placeOrder(ref_item) {
 	}
 	if (check_order) {
 		/**/
-		first_placeOrder(order_item[0][0], order_item[0][1]);
-		setTimeout(function(){ other_placeOrder(order_item); }, 3000);
+		_placeOrder(order_item[0][0], order_item[0][1]);
+		for (var i = 1; i < order_item.length; i++) {
+			doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1]);
+		}
 		
 		
 		
@@ -177,23 +179,7 @@ function placeOrder(ref_item) {
 	}
 }
 
-/* function _placeOrder(_item_code, _qty) {
-	frappe.provide('erpnext.shopping_cart');
-
-	erpnext.shopping_cart.update_cart({
-		item_code: _item_code,
-		qty: _qty,
-		callback: function(r) {
-			if(!r.exc) {
-								
-			} else {
-					window.alert("oops");
-			}
-		},
-		btn: this,
-	});
-} */
-function first_placeOrder(_item_code, _qty) {
+function _placeOrder(_item_code, _qty) {
 	frappe.provide('erpnext.shopping_cart');
 
 	erpnext.shopping_cart.update_cart({
@@ -209,24 +195,10 @@ function first_placeOrder(_item_code, _qty) {
 		btn: this,
 	});
 }
-function other_placeOrder(order_item) {
-	frappe.provide('erpnext.shopping_cart');
-	
-	for (var i = 1; i < order_item.length; i++) {
-		erpnext.shopping_cart.update_cart({
-			item_code: order_item[i][0],
-			qty: order_item[i][1],
-			callback: function(r) {
-				if(!r.exc) {
-									
-				} else {
-						window.alert("oops");
-				}
-			},
-			btn: this,
-		});
-	}
+function doPlaceOrderWithTimeout(item, value) {
+	setTimeout(function(){ _placeOrder(item, value); }, 1000);
 }
+
 /*------------------------------------------------------------------------------------------------------*/
 
 /* slideshow section */
