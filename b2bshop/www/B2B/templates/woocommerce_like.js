@@ -164,12 +164,13 @@ function placeOrder(ref_item) {
 	if (check_order) {
 		/**/
 		first_placeOrder(order_item[0][0], order_item[0][1]);
-		other_placeOrder(order_item);
+		setTimeout(function(){ other_placeOrder(order_item); }, 3000);
 		
 		
 		
-		modal = document.getElementById('goToCart');
-		modal.style.display = "block";
+		
+		/* modal = document.getElementById('goToCart');
+		modal.style.display = "block"; */
 	} else {
 		modal = document.getElementById('empty');
 		modal.style.display = "block";
