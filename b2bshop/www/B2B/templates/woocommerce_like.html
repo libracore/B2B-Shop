@@ -17,7 +17,7 @@
 					<a onclick="open_order_modal('{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
 						<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
 						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
-						<center><span>{{ item_detail[1] }}{% if item_detail[4] == 1 %}<br><b style="color: red;">Pre Sales Item</b>{% endif %}</span></center>
+						<center><span>{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}</span></center>
 					</div></a>
 					
 				{% endfor %}
@@ -88,7 +88,7 @@
 					<a onclick="open_order_modal('{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
 						<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
 						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
-						<center><span>{{ item_detail[1] }}</span></center>
+						<center><span>{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}</span></center>
 					</div></a>
 					
 				{% endfor %}

@@ -20,7 +20,7 @@
   "in_list_view": 0, 
   "in_standard_filter": 0, 
   "insert_after": "show_in_website", 
-  "label": "Is Pre Sale", 
+  "label": "Is Pre Order", 
   "modified": "2018-07-05 09:24:21.663043", 
   "name": "Item Group-is_pre_sale", 
   "no_copy": 0, 
