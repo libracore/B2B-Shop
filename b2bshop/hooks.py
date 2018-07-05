@@ -138,4 +138,4 @@ jenv = {
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "b2bshop.event.get_events"
 # }
-
+fixtures = ["Custom Field"]

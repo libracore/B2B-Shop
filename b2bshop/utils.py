@@ -13,8 +13,9 @@ def get_all_items_of_refsize_for_webshop():
 	return all_items
 
 def get_item_details(item):
-	sql_query = """SELECT t1.`image`, t1.`item_name`, t1.`item_group`, t1.`web_long_description`
+	sql_query = """SELECT t1.`image`, t1.`item_name`, t1.`item_group`, t1.`web_long_description`, t2.`is_pre_sale`
 		FROM `tabItem` AS t1
+		INNER JOIN `tabItem Group` AS t2 ON t1.`item_group` = t2.`name`
 		WHERE t1.`name` = '{0}'""".format(item)
 	item_details = frappe.db.sql(sql_query, as_list=True)
 	return item_details
@@ -47,7 +48,8 @@ def get_all_corresponding_sizes(item):
 		INNER JOIN `tabItem Variant Attribute` AS t2 ON t1.`parent` = t2.`parent`
 		WHERE t1.`attribute` = 'Size'
 		AND t1.`parent` IN ({0})
-		AND t2.`attribute_value` = '{1}'""".format("'"+"', '".join(all_items)+"'", color[0][0])
+		AND t2.`attribute_value` = '{1}'
+		ORDER BY t1.`attribute_value` ASC""".format("'"+"', '".join(all_items)+"'", color[0][0])
 	all_corresponding_sizes = frappe.db.sql(sql_query, as_list=True)
 	return all_corresponding_sizes
 	
