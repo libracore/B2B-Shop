@@ -1,4 +1,5 @@
 <div class="row">
+<span onclick="openNav()">open</span>
 	<div id="myBtnContainer">
 	  <button class="filterdiv-btn active" onclick="filterSelection('all')"> Show all</button>
 	  {% for group in get_all_item_groups() %}
@@ -177,6 +178,15 @@
 		</div>
 	</div>  
 </div> 
+<!-- The overlay -->
+<div id="myNav" class="overlay">
+	<!-- Overlay content -->
+  <div class="overlay-content">
+    <p><i class="fa fa-spinner fa-spin" style="font-size:80px"></i></p>
+    <p>Please wait, your Cart will be updated</p>
+  </div>
+
+</div>
 <style>
 {% include "b2bshop/www/B2B/templates/woocommerce_like.css" %}
 </style>
