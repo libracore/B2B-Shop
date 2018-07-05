@@ -143,43 +143,39 @@ window.onclick = function(event) {
 /* place order section */
 /*----------------------------------------------------------------------------------------------*/
 function placeOrder(ref_item) {
-	//console.log(ref_item);
+	openNav();
 	var ref_container = document.getElementById(ref_item);
 	var items = ref_container.getElementsByClassName('item-qty');
 	
 	var check_order = false;
-	/**/
+
 	var order_item = [];
 	for (i = 0; i < items.length; i++) {
 		if (items[i].value > 0) {
-			/**/
 			_order_item = [];
 			_order_item.push(items[i].id);
 			_order_item.push(items[i].value);
 			order_item.push(_order_item);
-			/* _placeOrder(items[i].id, items[i].value); */
 			check_order = true;
 		}
 	}
 	if (check_order) {
-		/**/
 		_placeOrder(order_item[0][0], order_item[0][1]);
 		for (var i = 1; i < order_item.length; i++) {
-			doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1], i);
+			if (i != order_item.length - 1){
+				doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1], i);
+			} else {
+				doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1], i, true);
+			}
 		}
-		
-		
-		
-		
-		/* modal = document.getElementById('goToCart');
-		modal.style.display = "block"; */
 	} else {
 		modal = document.getElementById('empty');
 		modal.style.display = "block";
+		closeNav();
 	}
 }
 
-function _placeOrder(_item_code, _qty) {
+function _placeOrder(_item_code, _qty, last=false) {
 	frappe.provide('erpnext.shopping_cart');
 
 	erpnext.shopping_cart.update_cart({
@@ -194,9 +190,14 @@ function _placeOrder(_item_code, _qty) {
 		},
 		btn: this,
 	});
+	if (last) {
+		modal = document.getElementById('goToCart');
+		modal.style.display = "block";
+		closeNav();
+	}
 }
-function doPlaceOrderWithTimeout(item, value, i) {
-	setTimeout(function(){ _placeOrder(item, value); }, i * 1000);
+function doPlaceOrderWithTimeout(item, value, i, last=false) {
+	setTimeout(function(){ _placeOrder(item, value, last); }, i * 1000);
 }
 
 /*------------------------------------------------------------------------------------------------------*/
@@ -236,3 +237,14 @@ function showSlides(n, item) {
   /*captionText.innerHTML = dots[slideIndex-1].alt;*/
 }
 /*--------------------------------------------------------------------------------------------------------------*/
+
+
+/* Open */
+function openNav() {
+    document.getElementById("myNav").style.display = "block";
+}
+
+/* Close */
+function closeNav() {
+    document.getElementById("myNav").style.display = "none";
+} 
