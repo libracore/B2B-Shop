@@ -165,7 +165,7 @@ function placeOrder(ref_item) {
 		/**/
 		_placeOrder(order_item[0][0], order_item[0][1]);
 		for (var i = 1; i < order_item.length; i++) {
-			doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1]);
+			doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1], i);
 		}
 		
 		
@@ -195,8 +195,8 @@ function _placeOrder(_item_code, _qty) {
 		btn: this,
 	});
 }
-function doPlaceOrderWithTimeout(item, value) {
-	setTimeout(function(){ _placeOrder(item, value); }, 10000);
+function doPlaceOrderWithTimeout(item, value, i) {
+	setTimeout(function(){ _placeOrder(item, value); }, i * 1000);
 }
 
 /*------------------------------------------------------------------------------------------------------*/
