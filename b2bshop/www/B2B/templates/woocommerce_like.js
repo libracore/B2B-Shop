@@ -248,3 +248,8 @@ function openNav() {
 function closeNav() {
     document.getElementById("myNav").style.display = "none";
 } 
+
+function close_modal(modal_ref) {
+	modal = document.getElementById(modal_ref);
+	modal.style.display = "none";
+}
