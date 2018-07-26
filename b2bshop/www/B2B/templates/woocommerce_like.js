@@ -160,13 +160,17 @@ function placeOrder(ref_item) {
 		}
 	}
 	if (check_order) {
-		_placeOrder(order_item[0][0], order_item[0][1]);
-		for (var i = 1; i < order_item.length; i++) {
-			if (i != order_item.length - 1){
-				doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1], i);
-			} else {
-				doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1], i, true);
+		if (order_item.length > 1 ) {
+			_placeOrder(order_item[0][0], order_item[0][1]);
+			for (var i = 1; i < order_item.length; i++) {
+				if (i != order_item.length - 1){
+					doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1], i);
+				} else {
+					doPlaceOrderWithTimeout(order_item[i][0], order_item[i][1], i, true);
+				}
 			}
+		} else {
+			_placeOrder(order_item[0][0], order_item[0][1], true);
 		}
 	} else {
 		modal = document.getElementById('empty');
