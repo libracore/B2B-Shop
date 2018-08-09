@@ -103,7 +103,8 @@ def get_item_slideshow(item):
 def get_slideshow_images(slideshow):
 	sql_query = """SELECT `image`
 		FROM `tabWebsite Slideshow Item`
-		WHERE `parent` = '{0}'""".format(slideshow)
+		WHERE `parent` = '{0}'
+		ORDER BY `idx` ASC""".format(slideshow)
 	slideshow_images = frappe.db.sql(sql_query, as_list=True)
 	return slideshow_images
 
