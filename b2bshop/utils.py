@@ -109,10 +109,10 @@ def get_slideshow_images(slideshow):
 	return slideshow_images
 
 def get_all_items_without_size():
-	sql_query = """SELECT DISTINCT `parent`
-		FROM `tabItem Variant Attribute`
-		WHERE `attribute` <> 'Size'
-		AND `attribute` <> 'Colour'"""
+	sql_query = """SELECT DISTINCT t1.`parent`
+		FROM `tabItem Variant Attribute` AS t1
+		WHERE t1.`attribute` <> 'Size'
+		AND NOT EXISTS (SELECT t2.`parent` FROM `tabItem Variant Attribute` AS t2  WHERE t1.`parent` = t2.`parent` AND t2.`attribute` = 'Size')"""
 	_all_items_without_size = frappe.db.sql(sql_query, as_list=True)
 	all_items = []
 	for item in _all_items_without_size:
