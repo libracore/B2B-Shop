@@ -1,3 +1,5 @@
+<script src="https://scripts.sirv.com/sirv.js"></script>
+
 <div class="row">
 	<div id="myBtnContainer">
 	  <button class="filterdiv-btn active" onclick="filterSelection('all')"> Show all</button>
@@ -33,10 +35,13 @@
 						<div class="modal-body">
 							<div class="row">
 								<div class="col-sm-4">
+									{% if item_detail[5] %} <!-- {{ item_detail[5] }} --> 
+										<div class="Sirv" data-src="{{ item_detail[5] }}"></div>
+									{% else %}
 										{% set slideshows = get_item_slideshow(item[0]) %}
 										{% for slideshow in slideshows %}
 											{% if slideshow[0] == None %}
-												<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
+												<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">	
 											{% else %}
 												<div class="slideshow-container-{{ item[0] }}">
 													{% for image in get_slideshow_images(slideshow[0]) %}
@@ -55,7 +60,8 @@
 													</div>
 												</div>
 											{% endif %}
-										{% endfor %}
+										{% endfor %} 
+									{% endif%}
 								</div>
 								<div class="col-sm-8" style="min-height:200px;">
 									{{ item_detail[3] }}
@@ -194,3 +200,4 @@
 <script>
 {% include "b2bshop/www/B2B/templates/woocommerce_like.js" %}
 </script>
+
