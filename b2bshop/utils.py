@@ -13,7 +13,7 @@ def get_all_items_of_refsize_for_webshop():
 	return all_items
 
 def get_item_details(item):
-	sql_query = """SELECT t1.`image`, t1.`item_name`, t1.`item_group`, t1.`web_long_description`, t2.`is_pre_sale`
+	sql_query = """SELECT t1.`image`, t1.`item_name`, t1.`item_group`, t1.`web_long_description`, t2.`is_pre_sale`, t1.`sirv_link`
 		FROM `tabItem` AS t1
 		INNER JOIN `tabItem Group` AS t2 ON t1.`item_group` = t2.`name`
 		WHERE t1.`name` = '{0}'""".format(item)
