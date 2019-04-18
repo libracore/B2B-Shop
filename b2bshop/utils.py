@@ -13,7 +13,7 @@ def get_all_items_of_refsize_for_webshop():
 	return all_items
 
 def get_item_details(item):
-	sql_query = """SELECT t1.`image`, t1.`item_name`, t1.`item_group`, t1.`web_long_description`, t2.`is_pre_sale`
+	sql_query = """SELECT t1.`image`, t1.`item_name`, t1.`item_group`, t1.`web_long_description`, t2.`is_pre_sale`, t1.`sirv_link`
 		FROM `tabItem` AS t1
 		INNER JOIN `tabItem Group` AS t2 ON t1.`item_group` = t2.`name`
 		WHERE t1.`name` = '{0}'""".format(item)
@@ -103,15 +103,16 @@ def get_item_slideshow(item):
 def get_slideshow_images(slideshow):
 	sql_query = """SELECT `image`
 		FROM `tabWebsite Slideshow Item`
-		WHERE `parent` = '{0}'""".format(slideshow)
+		WHERE `parent` = '{0}'
+		ORDER BY `idx` ASC""".format(slideshow)
 	slideshow_images = frappe.db.sql(sql_query, as_list=True)
 	return slideshow_images
 
 def get_all_items_without_size():
-	sql_query = """SELECT DISTINCT `parent`
-		FROM `tabItem Variant Attribute`
-		WHERE `attribute` <> 'Size'
-		AND `attribute` <> 'Colour'"""
+	sql_query = """SELECT DISTINCT t1.`parent`
+		FROM `tabItem Variant Attribute` AS t1
+		WHERE t1.`attribute` <> 'Size'
+		AND NOT EXISTS (SELECT t2.`parent` FROM `tabItem Variant Attribute` AS t2  WHERE t1.`parent` = t2.`parent` AND t2.`attribute` = 'Size')"""
 	_all_items_without_size = frappe.db.sql(sql_query, as_list=True)
 	all_items = []
 	for item in _all_items_without_size:
