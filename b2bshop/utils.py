@@ -104,7 +104,7 @@ def check_and_update_warehouse_in_quotation(item, qty):
 	default_warehouse = frappe.get_doc("Item", item).default_warehouse
 	if get_item_stock_of_default(item, default_warehouse) < qty:
 		customer = get_party().name
-		_quotation = frappe.db.sql("""SELECT `name` FROM `tabQuotation` WHERE `customer_name` = '{customer} AND `docstatus` = 0 LIMIT 1""".format(customer=customer), as_list=True)[0][0]
+		_quotation = frappe.db.sql("""SELECT `name` FROM `tabQuotation` WHERE `customer_name` = '{customer}' AND `docstatus` = 0 LIMIT 1""".format(customer=customer), as_list=True)[0][0]
 		quotation = frappe.get_doc("Quotation", _quotation)
 		for quotation_item in quotation.items:
 			if quotation_item.item_code == item:
@@ -119,11 +119,11 @@ def get_fallback_warehouse(default_warehouse):
 	
 def get_party():
 	user = frappe.session.user
-	party = frappe.db.get_value("Contact", {"email_id": user}, ["customer", "supplier"], as_dict=1)
-	if party:
-		party_doctype = 'Customer' if party.customer else 'Supplier'
-		party = party.customer or party.supplier
-		return frappe.get_doc(party_doctype, party)
+	contact = frappe.get_doc("Contact", frappe.db.sql("""SELECT `name` FROM `tabContact` WHERE `user` = '{user}' OR `email_id` = '{user}' LIMIT 1""".format(user=user), as_list=True)[0][0])
+	for link in contact.links:
+		if link.link_doctype == 'Customer':
+			party = link.link_name
+	return frappe.get_doc("Customer", party)
 	
 
 def get_item_slideshow(item):
