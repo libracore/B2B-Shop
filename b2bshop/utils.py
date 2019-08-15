@@ -108,7 +108,11 @@ def check_and_update_warehouse_in_quotation(item, qty):
 		quotation = frappe.get_doc("Quotation", _quotation)
 		for quotation_item in quotation.items:
 			if quotation_item.item_code == item:
-				quotation_item.warehouse = get_fallback_warehouse(default_warehouse)
+				fallback_warehouse = get_fallback_warehouse(default_warehouse)
+				quotation_item.warehouse = fallback_warehouse
+				fallback_qty = get_item_stock_of_default(item, fallback_warehouse)
+				quotation_item.actual_qty = fallback_qty
+				quotation_item.projected_qty = fallback_qty
 				quotation.save()
 	
 def get_fallback_warehouse(default_warehouse):
