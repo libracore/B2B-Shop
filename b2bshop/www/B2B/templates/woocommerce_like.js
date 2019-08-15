@@ -187,7 +187,13 @@ function _placeOrder(_item_code, _qty, last=false) {
 		qty: _qty,
 		callback: function(r) {
 			if(!r.exc) {
-								
+				frappe.call({
+					method:"b2bshop.utils.check_and_update_warehouse_in_quotation",
+					args:{
+						item: _item_code,
+						qty: _qty
+					}
+				});				
 			} else {
 					window.alert("oops");
 			}
