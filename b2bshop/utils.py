@@ -92,6 +92,39 @@ def get_item_stock(item):
 		return '<span style="color: green;"><i class="fa fa-check"></i></span>'
 	else:
 		return '<span style="color: red;"><i class="fa fa-times"></i></span>'
+	
+def get_item_stock_of_default(item, warehouse):
+	qty = 0
+	bin = get_bin(item, warehouse)
+	qty = bin.actual_qty
+	return qty
+	
+@frappe.whitelist()
+def check_and_update_warehouse_in_quotation(item, qty):
+	default_warehouse = frappe.get_doc("Item", item).default_warehouse
+	if get_item_stock_of_default(item, default_warehouse) < qty:
+		customer = get_party().name
+		_quotation = frappe.db.sql("""SELECT `name` FROM `tabQuotation` WHERE `customer_name` = '{customer} AND `docstatus` = 0 LIMIT 1""".format(customer=customer), as_list=True)[0][0]
+		quotation = frappe.get_doc("Quotation", _quotation)
+		for quotation_item in quotation.items:
+			if quotation_item.item_code == item:
+				quotation_item.warehouse = get_fallback_warehouse(default_warehouse)
+				quotation.save()
+	
+def get_fallback_warehouse(default_warehouse):
+	warehouses = get_warehouses()
+	for warehouse in warehouses:
+		if warehouse[0] != default_warehouse:
+			return warehouse[0]
+	
+def get_party():
+	user = frappe.session.user
+	party = frappe.db.get_value("Contact", {"email_id": user}, ["customer", "supplier"], as_dict=1)
+	if party:
+		party_doctype = 'Customer' if party.customer else 'Supplier'
+		party = party.customer or party.supplier
+		return frappe.get_doc(party_doctype, party)
+	
 
 def get_item_slideshow(item):
 	sql_query = """SELECT `slideshow`
