@@ -1,28 +1,53 @@
-	<nav class="navbar navbar-default navbar-main rubi-3" role="navigation">
-		<div class="container">
-		<div class="row">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4">
-			<div class="navbar-header">
-				<a class="navbar-brand ellipsis rubi-1"
-					 href="{{ url_prefix }}{{ home_page or "/"}}">
-					<span>{{ brand_html or (frappe.get_hooks("brand_html") or ["Home"])[0] }}</span>
-				</a>
-				<div class="dropdown rubi-2">
-					<button class="btn btn-default navbar-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						<i class="octicon octicon-three-bars"></i>
-					</button>
-					{% include "templates/includes/navbar/dropdown_items.html" %}
-				</div>
-			</div>
-			</div>
-			<div class="col-sm-4">
-			<div class="hidden-xs rubi-2">
-				{% block navbar_items %}
-				{% include "templates/includes/navbar/navbar_items.html" %}
-				{% endblock %}
-			</div>
+<!--{#<nav class="navbar navbar-default navbar-main rubi-3" role="navigation">
+	<div class="container">
+	<div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+		<div class="navbar-header">
+			<a class="navbar-brand ellipsis rubi-1"
+				 href="{{ url_prefix }}{{ home_page or "/"}}">
+				<span>{{ brand_html or (frappe.get_hooks("brand_html") or ["Home"])[0] }}</span>
+			</a>
+			<div class="dropdown rubi-2">
+				<button class="btn btn-default navbar-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<i class="octicon octicon-three-bars"></i>
+				</button>
+				{% include "templates/includes/navbar/dropdown_items.html" %}
 			</div>
 		</div>
 		</div>
-	</nav>
+		<div class="col-sm-4">
+		<div class="hidden-xs rubi-2">
+			{% block navbar_items %}
+			{% include "templates/includes/navbar/navbar_items.html" %}
+			{% endblock %}
+		</div>
+		</div>
+	</div>
+	</div>
+</nav>#}-->
+
+<nav class="navbar navbar-light rubi-bg-black navbar-expand-lg sticky-top shadow-sm">
+	<div class="container d-flex justify-content-center">
+		<div class="ml-auto d-flex justify-content-center">
+			<a class="navbar-brand" href="{{ url_prefix }}{{ home_page or "/" }}">
+				<span>{{ brand_html or (frappe.get_hooks("brand_html") or ["Home"])[0] }}</span>
+			</a>
+		</div>
+		<div class="ml-auto">
+			
+			<button class="navbar-toggler text-secondary" type="button"
+				data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				{% include "templates/navbar/navbar_items.html" %}
+			</div>
+		</div>
+	</div>
+</nav>
