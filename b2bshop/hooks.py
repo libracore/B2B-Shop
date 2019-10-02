@@ -35,12 +35,12 @@ web_include_css = "/assets/b2bshop/css/rubirosa.css"
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "login"
 
 # website user home page (by Role)
-# role_home_page = {
-#	"Role": "home_page"
-# }
+role_home_page = {
+	"Customer": "start"
+}
 
 website_context = {
 	"base_template_path": "templates/b2b_base.html"

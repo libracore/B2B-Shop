@@ -1,5 +1,5 @@
 {% for page in footer_items %}
-<div class="col-sm-4 footer-group">
+<div class="col footer-group">
 	{% if not page.parent_label -%}
 		<div data-label='{{ page.label }}'>
 		<a {% if not page.child_items -%} href="{{ (page.url or '')|abs_url }}" {%- endif %}
