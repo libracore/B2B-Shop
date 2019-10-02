@@ -1,15 +1,18 @@
-
+if (window.location.href.indexOf("orders") > -1) {
+	try {
+		var btn = document.getElementById("pay-for-order");
+		btn.classList.add("hidden");
+	} catch {}
+}
 
 /* Filter section */
 /*---------------------------------------------------------*/
 filterSelection("all")
 function filterSelection(c) {
-console.log("OK"); 
- var x, i;
+var x, i;
   x = document.getElementsByClassName("filterDiv");
   if (c == "all") c = "";
   // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
-  console.log(x);
   for (i = 0; i < x.length; i++) {
     w3RemoveClass(x[i], "show");
 	w3AddClass(x[i].parentNode.parentNode, "hidden")
