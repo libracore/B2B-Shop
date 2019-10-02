@@ -9,7 +9,7 @@
 <div class="row">
 </div>
 <div class="row">
-	<div class="filterdiv-container">
+	<!-- <div class="filterdiv-container"> --> <!-- has to be removed after upgrade to V12! -->
 		<!-- Items with attribute Size -->
 		{% for item in get_all_items_of_refsize_for_webshop() %}
 			<div class="col-xs-12 col-sm-4">
@@ -151,7 +151,7 @@
 				</div>
 			{% endfor %}
 		{% endfor %}
-	</div>
+	<!-- </div> --> <!-- has to be removed after upgrade to V12! -->
 </div>
 <!-- cart modal -->
  <!-- Modal content -->
@@ -188,9 +188,3 @@
   </div>
 
 </div>
-<style>
-{% include "b2bshop/www/B2B/templates/woocommerce_like.css" %}
-</style>
-<script>
-{% include "b2bshop/www/B2B/templates/woocommerce_like.js" %}
-</script>

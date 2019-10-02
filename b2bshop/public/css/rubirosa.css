@@ -1,3 +1,4 @@
+/* RUBIROSA */
 .rubi-1 {
 	min-height: 70px;
 	margin-left: 0px;
@@ -41,7 +42,21 @@
 .nav-link.btn-login-area {
 	color: #6c7680 !important;
 }
-
+.navbar-light .navbar-nav .nav-link {
+		color: white;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+		color: #6c7680 !important;
+}
+.nav-item .dropdown .logged-in .show {
+	color: #6c7680 !important;
+}
+.nav-link .dropdown-toggle {
+	color: #6c7680 !important;
+}
+.navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .nav-link.active {
+	color: #6c7680 !important;
+}
 .navbar-light .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
@@ -49,4 +64,275 @@
 .web-footer {
 	padding-bottom: 1.6rem;
 }
+
+
+/*------------------------------------------------*/
+/* WOOCOMMERCE LIKE */
+.filterdiv-container {
+    overflow: hidden;
+}
+.img-container.filterDiv {
+    display: none; /* Hidden by default */
+}
+.img-container.filterDiv.show {
+    display: block;
+}
+/* The "show" class is added to the filtered elements */
+.show {
+    display: block;
+}
+/* Style the buttons */
+.filterdiv-btn {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  width: 160px;
+  margin-bottom: 5px;
+}
+/* Add a light grey background on mouse-over */
+.filterdiv-btn:hover {
+  background-color: #ddd;
+}
+/* Add a dark background to the active button */
+.filterdiv-btn.active {
+  background-color: #666;
+  color: white;
+}
+body {
+	background-color: white;
+}
+* {box-sizing: border-box}
+/* Container needed to position the overlay. Adjust the width as needed */
+.img-container {
+  position: relative;
+  width: 100%;
+}
+/* Make the image to responsive */
+.img-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* The overlay effect - lays on top of the container and over the image */
+.img-overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  width: 100%;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 20px;
+  text-align: center;
+}
+/* When you mouse over the container, fade in the overlay title */
+.img-container:hover .img-overlay {
+  opacity: 1;
+}
+.clear-btn {
+	background-color: transparent;
+	border: none;
+}
+ /*-----------------------------------------------------------------------------------*/
+  /* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    background-color: black;
+    color: white;
+	height: 100px;
+}
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+} 
+
+.img-magnifier-container {
+  position: relative;
+}
+
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  border-radius: 50%;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 150px;
+  height: 150px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.slideshow-container {
+  position: relative;
+}
+.mySlides {
+  display: none;
+}
+.cursor {
+  cursor: pointer;
+}
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.close {
+	color: white;
+	opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* The Overlay (background) */
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */   
+    height: 100%;
+    width: 100%;
+    position: fixed; /* Stay in place */
+    z-index: 10000; /* Sit on top */
+    left: 0;
+    top: 0;
+    background-color: rgb(0,0,0); /* Black fallback color */
+    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+	display: none;
+}
+
+/* Position the content inside the overlay */
+.overlay-content {
+    position: relative;
+    top: 25%; /* 25% from the top */
+    width: 100%; /* 100% width */
+    text-align: center; /* Centered text/links */
+    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay p {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+
+
+
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+@media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+} 
+
+
 

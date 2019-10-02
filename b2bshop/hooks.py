@@ -20,7 +20,7 @@ app_license = "AGPL"
 
 # include js, css files in header of web template
 web_include_css = "/assets/b2bshop/css/rubirosa.css"
-# web_include_js = "/assets/b2bshop/js/b2bshop.js"
+web_include_js = "/assets/b2bshop/js/woocommerce_like.js"
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
