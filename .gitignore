@@ -4,3 +4,4 @@
 *.swp
 tags
 b2bshop/docs/current
+__pycache__
