@@ -14,7 +14,7 @@
 		{% for item in get_all_items_of_refsize_for_webshop() %}
 			<div class="col-xs-12 col-sm-4">
 				{% for item_detail in get_item_details(item[0]) %}
-					<a onclick="open_order_modal('{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
+					<a onclick="open_order_modal('modal-{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
 						<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
 						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
 						<center><span>{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% else %}{% if item_detail[5] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}{% endif %}</span></center>
@@ -24,10 +24,10 @@
 			</div>
 			{% for item_detail in get_item_details(item[0]) %}
 				 <!-- item Modal -->
-				<div id="{{ item[0] }}" class="modal" style="overflow: scroll;">
+				<div id="modal-{{ item[0] }}" class="modal" style="overflow: scroll;">
 					<div class="modal-content">
 						<div class="modal-header">
-							<span class="close" onclick="close_modal('{{ item[0] }}')">&times;</span>
+							<span class="close" onclick="close_modal('modal-{{ item[0] }}')">&times;</span>
 							<h2>{{ item_detail[1] }}</h2>
 						</div>
 						<div class="modal-body">
@@ -71,7 +71,7 @@
 									{% endfor %}
 									<div class="col-xs-12 col-sm-3">
 										<p><br></p>
-										<button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('{{ item[0] }}')">Add to cart</button>
+										<button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('modal-{{ item[0] }}')">Add to cart</button>
 										<p><span style="color: green;"><i class="fa fa-check"></i> In Stock</span><br><span style="color: red;"><i class="fa fa-times"></i> Not In Stock</span></p>
 									</div>
 								</div>
@@ -86,7 +86,7 @@
 		{% for item in get_all_items_without_size() %}
 			<div class="col-xs-12 col-sm-4">
 				{% for item_detail in get_item_details(item[0]) %}
-					<a onclick="open_order_modal('{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
+					<a onclick="open_order_modal('modal-{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
 						<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
 						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
 						<center><span>{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% else %}{% if item_detail[5] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}{% endif %}</span></center>
@@ -96,10 +96,10 @@
 			</div>
 			{% for item_detail in get_item_details(item[0]) %}
 				 <!-- item Modal -->
-				<div id="{{ item[0] }}" class="modal" style="overflow: scroll">
+				<div id="modal-{{ item[0] }}" class="modal" style="overflow: scroll">
 					<div class="modal-content">
 						<div class="modal-header">
-							<span class="close" onclick="close_modal('{{ item[0] }}')">&times;</span>
+							<span class="close" onclick="close_modal('modal-{{ item[0] }}')">&times;</span>
 							<h2>{{ item_detail[1] }}</h2>
 						</div>
 						<div class="modal-body">
@@ -141,7 +141,7 @@
 									</div>
 									<div class="col-xs-12 col-sm-3">
 										<p><br></p>
-										<button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('{{ item[0] }}')">Add to cart</button>
+										<button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('modal-{{ item[0] }}')">Add to cart</button>
 										<p><span style="color: green;"><i class="fa fa-check"></i> In Stock</span><br><span style="color: red;"><i class="fa fa-times"></i> Not In Stock</span></p>
 									</div>
 								</div>

@@ -155,7 +155,6 @@ function placeOrder(ref_item) {
 	openNav();
 	var ref_container = document.getElementById(ref_item);
 	var items = ref_container.getElementsByClassName('item-qty');
-	
 	var check_order = false;
 
 	var order_item = [];
@@ -163,7 +162,7 @@ function placeOrder(ref_item) {
 		if (items[i].value > 0) {
 			_order_item = [];
 			_order_item.push(items[i].id);
-			_order_item.push(items[i].value);
+			_order_item.push($(items[i]).val());
 			order_item.push(_order_item);
 			check_order = true;
 		}
