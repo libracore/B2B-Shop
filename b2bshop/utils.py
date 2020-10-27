@@ -38,18 +38,31 @@ def get_parent_group(group):
 def get_all_corresponding_sizes(item):
 	template = get_template(item)
 	color = get_color(item)
+	season = get_season(item)
 	_all_items = get_all_items(template[0][0])
 	all_items = []
 	for item in _all_items:
 		all_items.append(item[0])
 	
+	if season:
+		second_join = 'INNER JOIN `tabItem Variant Attribute` AS t3 ON t1.`parent` = t3.`parent`'
+		second_join_where = """AND t3.`attribute_value` = '{season}'""".format(season=season[0][0])
+	else:
+		second_join = ''
+		second_join_where = """AND t1.`parent` NOT IN (
+								SELECT `parent` FROM `tabItem Variant Attribute`
+								WHERE `attribute` = 'Season'
+								)"""
+		
 	sql_query = """SELECT DISTINCT t1.`attribute_value`, t1.`parent`
 		FROM `tabItem Variant Attribute` AS t1
 		INNER JOIN `tabItem Variant Attribute` AS t2 ON t1.`parent` = t2.`parent`
+		{second_join}
 		WHERE t1.`attribute` = 'Size'
-		AND t1.`parent` IN ({0})
-		AND t2.`attribute_value` = '{1}'
-		ORDER BY t1.`attribute_value` ASC""".format("'"+"', '".join(all_items)+"'", color[0][0])
+		AND t1.`parent` IN ({parent_list})
+		AND t2.`attribute_value` = '{color}'
+		{second_join_where}
+		ORDER BY t1.`attribute_value` ASC""".format(second_join=second_join, parent_list="'"+"', '".join(all_items)+"'", color=color[0][0], second_join_where=second_join_where)
 	all_corresponding_sizes = frappe.db.sql(sql_query, as_list=True)
 	return all_corresponding_sizes
 	
@@ -75,6 +88,14 @@ def get_color(item):
 		AND `attribute` = 'Colour'""".format(item)
 	color = frappe.db.sql(sql_query, as_list=True)
 	return color
+	
+def get_season(item):
+	sql_query = """SELECT `attribute_value`
+		FROM `tabItem Variant Attribute`
+		WHERE `parent` = '{0}'
+		AND `attribute` = 'Season'""".format(item)
+	season = frappe.db.sql(sql_query, as_list=True)
+	return season
 
 def get_warehouses():
 	sql_query = """SELECT `warehouse`
