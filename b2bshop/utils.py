@@ -22,8 +22,8 @@ def get_item_details(item):
 
 def get_all_item_groups():
 	sql_query = """SELECT t1.`name`
-		FROM `tabItem Group` AS t1
-		WHERE t1.`show_in_website` = '1'"""
+					FROM `tabItem Group` AS t1
+					WHERE t1.`show_in_website` = '1'"""
 	item_groups = frappe.db.sql(sql_query, as_list=True)
 	return item_groups
 	

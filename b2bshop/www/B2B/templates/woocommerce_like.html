@@ -1,6 +1,7 @@
 <div class="row">
 	<div id="myBtnContainer">
 	  <button class="filterdiv-btn active" onclick="filterSelection('all')"> Show all</button>
+	  <button class="filterdiv-btn" onclick="filterSelection('PRE')"> Pre Order</button>
 	  {% for group in get_all_item_groups() %}
 		<button class="filterdiv-btn" onclick="filterSelection('{{ group[0] }}')"> {{ group[0] }}</button>
 	  {% endfor %}
@@ -9,149 +10,147 @@
 <div class="row">
 </div>
 <div class="row">
-	<!-- <div class="filterdiv-container"> --> <!-- has to be removed after upgrade to V12! -->
-		<!-- Items with attribute Size -->
-		{% for item in get_all_items_of_refsize_for_webshop() %}
-			<div class="col-xs-12 col-sm-4">
-				{% for item_detail in get_item_details(item[0]) %}
-					<a onclick="open_order_modal('modal-{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
-						<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
-						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
-						<center><span>{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% else %}{% if item_detail[5] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}{% endif %}</span></center>
-					</div></a>
-					
-				{% endfor %}
-			</div>
+	<!-- Items with attribute Size -->
+	{% for item in get_all_items_of_refsize_for_webshop() %}
+		<div class="col-xs-12 col-sm-4">
 			{% for item_detail in get_item_details(item[0]) %}
-				 <!-- item Modal -->
-				<div id="modal-{{ item[0] }}" class="modal" style="overflow: scroll;">
-					<div class="modal-content">
-						<div class="modal-header">
-							<span class="close" onclick="close_modal('modal-{{ item[0] }}')">&times;</span>
-							<h2>{{ item_detail[1] }}</h2>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-sm-4">
-										{% set slideshows = get_item_slideshow(item[0]) %}
-										{% for slideshow in slideshows %}
-											{% if slideshow[0] == None %}
-												<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
-											{% else %}
-												<div class="slideshow-container-{{ item[0] }}">
+				<a onclick="open_order_modal('modal-{{ item[0] }}')"><div class="img-container filterDiv{% if item_detail[4] == 1 %} PRE {% else %}{% if item_detail[5] == 1 %} PRE{% else %} {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}{% endif %}{% endif %}">
+					<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
+					<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
+					<center><span>{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% else %}{% if item_detail[5] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}{% endif %}</span></center>
+				</div></a>
+				
+			{% endfor %}
+		</div>
+		{% for item_detail in get_item_details(item[0]) %}
+			 <!-- item Modal -->
+			<div id="modal-{{ item[0] }}" class="modal" style="overflow: scroll;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<span class="close" onclick="close_modal('modal-{{ item[0] }}')">&times;</span>
+						<h2>{{ item_detail[1] }}</h2>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-4">
+									{% set slideshows = get_item_slideshow(item[0]) %}
+									{% for slideshow in slideshows %}
+										{% if slideshow[0] == None %}
+											<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
+										{% else %}
+											<div class="slideshow-container-{{ item[0] }}">
+												{% for image in get_slideshow_images(slideshow[0]) %}
+													<div class="mySlides"{% if loop.first %} style="display: block;"{% endif %}>
+														<img src="{{ image[0] }}" style="width:100%;">
+													</div>
+												{% endfor %}
+												<a class="prev" onclick="plusSlides(-1, '{{ item[0] }}')">&#10094;</a>
+												<a class="next" onclick="plusSlides(1, '{{ item[0] }}')">&#10095;</a>
+												<div class="row">
 													{% for image in get_slideshow_images(slideshow[0]) %}
-														<div class="mySlides"{% if loop.first %} style="display: block;"{% endif %}>
-															<img src="{{ image[0] }}" style="width:100%;">
+														<div class="column">
+															<img class="demo cursor{% if loop.first %} active{% endif %}" src="{{ image[0] }}" style="width:100%; padding-left: 15px;" onclick="currentSlide({{ loop.index }}, '{{ item[0] }}')" alt="{{ image[0] }}">
 														</div>
 													{% endfor %}
-													<a class="prev" onclick="plusSlides(-1, '{{ item[0] }}')">&#10094;</a>
-													<a class="next" onclick="plusSlides(1, '{{ item[0] }}')">&#10095;</a>
-													<div class="row">
-														{% for image in get_slideshow_images(slideshow[0]) %}
-															<div class="column">
-																<img class="demo cursor{% if loop.first %} active{% endif %}" src="{{ image[0] }}" style="width:100%; padding-left: 15px;" onclick="currentSlide({{ loop.index }}, '{{ item[0] }}')" alt="{{ image[0] }}">
-															</div>
-														{% endfor %}
-													</div>
 												</div>
-											{% endif %}
-										{% endfor %}
-								</div>
-								<div class="col-sm-8" style="min-height:200px;">
-									{{ item_detail[3] }}
-								</div>
-							</div>
-							<div class="container" style="margin-right: 0px;">
-								<div class="row">
-									{% for size in get_all_corresponding_sizes(item[0]) %}
-										<div class=" col-xs-4 col-sm-1">
-											<center><p>{{ size[0] }}</p><input class="form-control item-qty" type="number" id="{{ size[1] }}"  value="0" min="0"><br>
-												{{ get_item_stock(size[1]) }}</center>
-										</div>
+											</div>
+										{% endif %}
 									{% endfor %}
-									<div class="col-xs-12 col-sm-3">
-										<p><br></p>
-										<button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('modal-{{ item[0] }}')">Add to cart</button>
-										<p><span style="color: green;"><i class="fa fa-check"></i> In Stock</span><br><span style="color: red;"><i class="fa fa-times"></i> Not In Stock</span></p>
+							</div>
+							<div class="col-sm-8" style="min-height:200px;">
+								{{ item_detail[3] }}
+							</div>
+						</div>
+						<div class="container" style="margin-right: 0px;">
+							<div class="row">
+								{% for size in get_all_corresponding_sizes(item[0]) %}
+									<div class=" col-xs-4 col-sm-1">
+										<center><p>{{ size[0] }}</p><input class="form-control item-qty" type="number" id="{{ size[1] }}"  value="0" min="0"><br>
+											{{ get_item_stock(size[1]) }}</center>
 									</div>
+								{% endfor %}
+								<div class="col-xs-12 col-sm-3">
+									<p><br></p>
+									<button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('modal-{{ item[0] }}')">Add to cart</button>
+									<p><span style="color: green;"><i class="fa fa-check"></i> In Stock</span><br><span style="color: red;"><i class="fa fa-times"></i> Not In Stock</span></p>
 								</div>
 							</div>
-							
 						</div>
-					</div>  
-				</div>
-			{% endfor %}
-		{% endfor %}
-		<!-- Items without attribute Size -->
-		{% for item in get_all_items_without_size() %}
-			<div class="col-xs-12 col-sm-4">
-				{% for item_detail in get_item_details(item[0]) %}
-					<a onclick="open_order_modal('modal-{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
-						<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
-						<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
-						<center><span>{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% else %}{% if item_detail[5] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}{% endif %}</span></center>
-					</div></a>
-					
-				{% endfor %}
+						
+					</div>
+				</div>  
 			</div>
+		{% endfor %}
+	{% endfor %}
+	<!-- Items without attribute Size -->
+	{% for item in get_all_items_without_size() %}
+		<div class="col-xs-12 col-sm-4">
 			{% for item_detail in get_item_details(item[0]) %}
-				 <!-- item Modal -->
-				<div id="modal-{{ item[0] }}" class="modal" style="overflow: scroll">
-					<div class="modal-content">
-						<div class="modal-header">
-							<span class="close" onclick="close_modal('modal-{{ item[0] }}')">&times;</span>
-							<h2>{{ item_detail[1] }}</h2>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-sm-4">
-										{% set slideshows = get_item_slideshow(item[0]) %}
-										{% for slideshow in slideshows %}
-											{% if slideshow[0] == None %}
-												<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
-											{% else %}
-												<div class="slideshow-container-{{ item[0] }}">
+				<a onclick="open_order_modal('modal-{{ item[0] }}')"><div class="img-container filterDiv {{ item_detail[2] }} {% for parent in get_parent_group(item_detail[2]) %}{{ parent[0] }} {% endfor %}">
+					<img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
+					<div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
+					<center><span>{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% else %}{% if item_detail[5] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}{% endif %}</span></center>
+				</div></a>
+				
+			{% endfor %}
+		</div>
+		{% for item_detail in get_item_details(item[0]) %}
+			 <!-- item Modal -->
+			<div id="modal-{{ item[0] }}" class="modal" style="overflow: scroll">
+				<div class="modal-content">
+					<div class="modal-header">
+						<span class="close" onclick="close_modal('modal-{{ item[0] }}')">&times;</span>
+						<h2>{{ item_detail[1] }}</h2>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-sm-4">
+									{% set slideshows = get_item_slideshow(item[0]) %}
+									{% for slideshow in slideshows %}
+										{% if slideshow[0] == None %}
+											<img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
+										{% else %}
+											<div class="slideshow-container-{{ item[0] }}">
+												{% for image in get_slideshow_images(slideshow[0]) %}
+													<div class="mySlides"{% if loop.first %} style="display: block;"{% endif %}>
+														<img src="{{ image[0] }}" style="width:100%;">
+													</div>
+												{% endfor %}
+												<a class="prev" onclick="plusSlides(-1, '{{ item[0] }}')">&#10094;</a>
+												<a class="next" onclick="plusSlides(1, '{{ item[0] }}')">&#10095;</a>
+												<div class="row">
 													{% for image in get_slideshow_images(slideshow[0]) %}
-														<div class="mySlides"{% if loop.first %} style="display: block;"{% endif %}>
-															<img src="{{ image[0] }}" style="width:100%;">
+														<div class="column">
+															<img class="demo cursor{% if loop.first %} active{% endif %}" src="{{ image[0] }}" style="width:100%" onclick="currentSlide({{ loop.index }}, '{{ item[0] }}')" alt="{{ image[0] }}">
 														</div>
 													{% endfor %}
-													<a class="prev" onclick="plusSlides(-1, '{{ item[0] }}')">&#10094;</a>
-													<a class="next" onclick="plusSlides(1, '{{ item[0] }}')">&#10095;</a>
-													<div class="row">
-														{% for image in get_slideshow_images(slideshow[0]) %}
-															<div class="column">
-																<img class="demo cursor{% if loop.first %} active{% endif %}" src="{{ image[0] }}" style="width:100%" onclick="currentSlide({{ loop.index }}, '{{ item[0] }}')" alt="{{ image[0] }}">
-															</div>
-														{% endfor %}
-													</div>
 												</div>
-											{% endif %}
-										{% endfor %}
-								</div>
-								<div class="col-sm-8" style="min-height:200px;">
-									{{ item_detail[3] }}
-								</div>
+											</div>
+										{% endif %}
+									{% endfor %}
 							</div>
-							<div class="container" style="margin-right: 0px;">
-								<div class="row">
-									<div class=" col-xs-4 col-sm-1">
-										<center><p>Quantity</p><input class="form-control item-qty" type="number" id="{{ item[0] }}"  value="0" min="0"><br>
-											{{ get_item_stock(item[0]) }}</center>
-									</div>
-									<div class="col-xs-12 col-sm-3">
-										<p><br></p>
-										<button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('modal-{{ item[0] }}')">Add to cart</button>
-										<p><span style="color: green;"><i class="fa fa-check"></i> In Stock</span><br><span style="color: red;"><i class="fa fa-times"></i> Not In Stock</span></p>
-									</div>
+							<div class="col-sm-8" style="min-height:200px;">
+								{{ item_detail[3] }}
+							</div>
+						</div>
+						<div class="container" style="margin-right: 0px;">
+							<div class="row">
+								<div class=" col-xs-4 col-sm-1">
+									<center><p>Quantity</p><input class="form-control item-qty" type="number" id="{{ item[0] }}"  value="0" min="0"><br>
+										{{ get_item_stock(item[0]) }}</center>
+								</div>
+								<div class="col-xs-12 col-sm-3">
+									<p><br></p>
+									<button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('modal-{{ item[0] }}')">Add to cart</button>
+									<p><span style="color: green;"><i class="fa fa-check"></i> In Stock</span><br><span style="color: red;"><i class="fa fa-times"></i> Not In Stock</span></p>
 								</div>
 							</div>
 						</div>
-					</div>  
-				</div>
-			{% endfor %}
+					</div>
+				</div>  
+			</div>
 		{% endfor %}
-	<!-- </div> --> <!-- has to be removed after upgrade to V12! -->
+	{% endfor %}
 </div>
 <!-- cart modal -->
  <!-- Modal content -->
