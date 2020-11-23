@@ -37,34 +37,70 @@ def get_parent_group(group):
 	
 def get_all_corresponding_sizes(item):
 	template = get_template(item)
-	color = get_color(item)
-	season = get_season(item)
-	_all_items = get_all_items(template[0][0])
-	all_items = []
-	for item in _all_items:
-		all_items.append(item[0])
-	
-	if season:
-		second_join = 'INNER JOIN `tabItem Variant Attribute` AS t3 ON t1.`parent` = t3.`parent`'
-		second_join_where = """AND t3.`attribute_value` = '{season}'""".format(season=season[0][0])
-	else:
-		second_join = ''
-		second_join_where = """AND t1.`parent` NOT IN (
-								SELECT `parent` FROM `tabItem Variant Attribute`
-								WHERE `attribute` = 'Season'
-								)"""
+	if template:
+		color = get_color(item)
+		season = get_season(item)
 		
-	sql_query = """SELECT DISTINCT t1.`attribute_value`, t1.`parent`
-		FROM `tabItem Variant Attribute` AS t1
-		INNER JOIN `tabItem Variant Attribute` AS t2 ON t1.`parent` = t2.`parent`
-		{second_join}
-		WHERE t1.`attribute` = 'Size'
-		AND t1.`parent` IN ({parent_list})
-		AND t2.`attribute_value` = '{color}'
-		{second_join_where}
-		ORDER BY t1.`attribute_value` ASC""".format(second_join=second_join, parent_list="'"+"', '".join(all_items)+"'", color=color[0][0], second_join_where=second_join_where)
-	all_corresponding_sizes = frappe.db.sql(sql_query, as_list=True)
-	return all_corresponding_sizes
+		_all_items = get_all_items(template[0][0])
+		all_items = []
+		for item in _all_items:
+			all_items.append(item[0])
+		
+		if color:
+			# get all corresponding items of color
+			color_sql_query = """SELECT DISTINCT
+							`tabItem Variant Attribute`.`parent`
+							FROM `tabItem Variant Attribute`
+							WHERE `tabItem Variant Attribute`.`attribute` = 'Colour'
+							AND `tabItem Variant Attribute`.`attribute_value` = '{color}'
+							AND `tabItem Variant Attribute`.`parent` IN ({parent_list})""".format(parent_list="'"+"', '".join(all_items)+"'", color=color[0][0])
+							
+			if season:
+				# get all corresponding items of season and color
+				season_sql_query = """SELECT DISTINCT
+								`tabItem Variant Attribute`.`parent`
+								FROM `tabItem Variant Attribute`
+								WHERE `tabItem Variant Attribute`.`attribute` = 'Season'
+								AND `tabItem Variant Attribute`.`attribute_value` = '{season}'
+								AND `tabItem Variant Attribute`.`parent` IN ({color_sql_query})""".format(color_sql_query=color_sql_query, season=season[0][0])
+
+				sql_query = """SELECT DISTINCT
+								`tabItem Variant Attribute`.`attribute_value`,
+								`tabItem Variant Attribute`.`parent`
+								FROM `tabItem Variant Attribute`
+								WHERE `tabItem Variant Attribute`.`attribute` = 'Size'
+								AND `tabItem Variant Attribute`.`parent` IN ({season_sql_query})
+								ORDER BY `tabItem Variant Attribute`.`attribute_value` ASC""".format(season_sql_query=season_sql_query)
+							
+			else:
+				# get all corresponding items of color without season
+				no_season_sql_query = """SELECT DISTINCT
+								`tabItem Variant Attribute`.`parent`
+								FROM `tabItem Variant Attribute`
+								WHERE `tabItem Variant Attribute`.`attribute` = 'Season'
+								AND `tabItem Variant Attribute`.`parent` IN ({color_sql_query})""".format(color_sql_query=color_sql_query)
+				
+				sql_query = """SELECT DISTINCT
+								`tabItem Variant Attribute`.`attribute_value`,
+								`tabItem Variant Attribute`.`parent`
+								FROM `tabItem Variant Attribute`
+								WHERE `tabItem Variant Attribute`.`attribute` = 'Size'
+								AND `tabItem Variant Attribute`.`parent` IN ({color_sql_query})
+								AND `tabItem Variant Attribute`.`parent` NOT IN ({no_season_sql_query})
+								ORDER BY `tabItem Variant Attribute`.`attribute_value` ASC""".format(color_sql_query=color_sql_query, no_season_sql_query=no_season_sql_query)
+							
+		else:
+			# fallback, should never be used
+			sql_query = """SELECT DISTINCT
+								`tabItem Variant Attribute`.`attribute_value`,
+								`tabItem Variant Attribute`.`parent`
+								FROM `tabItem Variant Attribute`
+								WHERE `tabItem Variant Attribute`.`attribute` = 'Size'
+								AND `tabItem Variant Attribute`.`parent` IN ({parent_list})
+								ORDER BY `tabItem Variant Attribute`.`attribute_value` ASC""".format(parent_list="'"+"', '".join(all_items)+"'")
+							
+		all_corresponding_sizes = frappe.db.sql(sql_query, as_list=True)
+		return all_corresponding_sizes
 	
 def get_all_items(template):
 	sql_query = """SELECT `name`
