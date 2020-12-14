@@ -40,6 +40,7 @@ def get_all_corresponding_sizes(item):
 	if template:
 		color = get_color(item)
 		season = get_season(item)
+		sole_color = get_sole_color(item)
 		
 		_all_items = get_all_items(template[0][0])
 		all_items = []
@@ -56,21 +57,45 @@ def get_all_corresponding_sizes(item):
 							AND `tabItem Variant Attribute`.`parent` IN ({parent_list})""".format(parent_list="'"+"', '".join(all_items)+"'", color=color[0][0])
 							
 			if season:
-				# get all corresponding items of season and color
-				season_sql_query = """SELECT DISTINCT
-								`tabItem Variant Attribute`.`parent`
-								FROM `tabItem Variant Attribute`
-								WHERE `tabItem Variant Attribute`.`attribute` = 'Season'
-								AND `tabItem Variant Attribute`.`attribute_value` = '{season}'
-								AND `tabItem Variant Attribute`.`parent` IN ({color_sql_query})""".format(color_sql_query=color_sql_query, season=season[0][0])
+				if sole_color:
+					# get all corresponding items of season, color and sole color
+					season_sql_query = """SELECT DISTINCT
+									`tabItem Variant Attribute`.`parent`
+									FROM `tabItem Variant Attribute`
+									WHERE `tabItem Variant Attribute`.`attribute` = 'Season'
+									AND `tabItem Variant Attribute`.`attribute_value` = '{season}'
+									AND `tabItem Variant Attribute`.`parent` IN ({color_sql_query})""".format(color_sql_query=color_sql_query, season=season[0][0])
+									
+					sole_color_sql_query = """SELECT DISTINCT
+									`tabItem Variant Attribute`.`parent`
+									FROM `tabItem Variant Attribute`
+									WHERE `tabItem Variant Attribute`.`attribute` = 'Sole Colour'
+									AND `tabItem Variant Attribute`.`attribute_value` = '{sole_color}'
+									AND `tabItem Variant Attribute`.`parent` IN ({season_sql_query})""".format(season_sql_query=season_sql_query, sole_color=sole_color[0][0])
 
-				sql_query = """SELECT DISTINCT
-								`tabItem Variant Attribute`.`attribute_value`,
-								`tabItem Variant Attribute`.`parent`
-								FROM `tabItem Variant Attribute`
-								WHERE `tabItem Variant Attribute`.`attribute` = 'Size'
-								AND `tabItem Variant Attribute`.`parent` IN ({season_sql_query})
-								ORDER BY `tabItem Variant Attribute`.`attribute_value` ASC""".format(season_sql_query=season_sql_query)
+					sql_query = """SELECT DISTINCT
+									`tabItem Variant Attribute`.`attribute_value`,
+									`tabItem Variant Attribute`.`parent`
+									FROM `tabItem Variant Attribute`
+									WHERE `tabItem Variant Attribute`.`attribute` = 'Size'
+									AND `tabItem Variant Attribute`.`parent` IN ({sole_color_sql_query})
+									ORDER BY `tabItem Variant Attribute`.`attribute_value` ASC""".format(sole_color_sql_query=sole_color_sql_query)
+				else:
+					# get all corresponding items of season and color
+					season_sql_query = """SELECT DISTINCT
+									`tabItem Variant Attribute`.`parent`
+									FROM `tabItem Variant Attribute`
+									WHERE `tabItem Variant Attribute`.`attribute` = 'Season'
+									AND `tabItem Variant Attribute`.`attribute_value` = '{season}'
+									AND `tabItem Variant Attribute`.`parent` IN ({color_sql_query})""".format(color_sql_query=color_sql_query, season=season[0][0])
+
+					sql_query = """SELECT DISTINCT
+									`tabItem Variant Attribute`.`attribute_value`,
+									`tabItem Variant Attribute`.`parent`
+									FROM `tabItem Variant Attribute`
+									WHERE `tabItem Variant Attribute`.`attribute` = 'Size'
+									AND `tabItem Variant Attribute`.`parent` IN ({season_sql_query})
+									ORDER BY `tabItem Variant Attribute`.`attribute_value` ASC""".format(season_sql_query=season_sql_query)
 							
 			else:
 				# get all corresponding items of color without season
@@ -132,6 +157,14 @@ def get_season(item):
 		AND `attribute` = 'Season'""".format(item)
 	season = frappe.db.sql(sql_query, as_list=True)
 	return season
+
+def get_sole_color(item):
+	sql_query = """SELECT `attribute_value`
+		FROM `tabItem Variant Attribute`
+		WHERE `parent` = '{0}'
+		AND `attribute` = 'Sole Colour'""".format(item)
+	sole_color = frappe.db.sql(sql_query, as_list=True)
+	return sole_color
 
 def get_warehouses():
 	sql_query = """SELECT `warehouse`
