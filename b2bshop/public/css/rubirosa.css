@@ -20,30 +20,30 @@
 	display: inline-block;
 	width: 42px;
 	height: 42px;
-	border: 2px solid #fff;
+	border: 2px solid black;
 }
 .rubi-6 {
 	text-align: center;
-	color: #fff;
+	color: black;
 	font-size: 20px;
 	line-height: 38px;
 }
 .rubi-7 {
-	color: white;
+	color: black;
 }
 
 
 
 
 .rubi-bg-black {
-	background-color: black;
+	background-color: white !important;
 	min-height: 100px;
 }
 .nav-link.btn-login-area {
 	color: #6c7680 !important;
 }
 .navbar-light .navbar-nav .nav-link {
-		color: white;
+		color: black;
 }
 .navbar-light .navbar-nav .nav-link:hover {
 		color: #6c7680 !important;
