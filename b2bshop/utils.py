@@ -192,6 +192,8 @@ def get_item_stock_of_default(item, warehouse):
 @frappe.whitelist()
 def check_and_update_warehouse_in_quotation(item, qty):
 	default_warehouse = frappe.get_doc("Item", item).default_warehouse
+	if qty:
+		qty = int(qty)
 	if get_item_stock_of_default(item, default_warehouse) < qty:
 		customer = get_party().name
 		_quotation = frappe.db.sql("""SELECT `name` FROM `tabQuotation` WHERE `customer_name` = '{customer}' AND `docstatus` = 0 LIMIT 1""".format(customer=customer), as_list=True)[0][0]

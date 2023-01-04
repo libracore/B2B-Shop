@@ -34,6 +34,12 @@
 </ul>
 {%- endif %}
 <ul class="navbar-nav">
+    <li class="shopping-cart cart-icon">
+		<a href="/cart" class="nav-link">
+			<i class="fa fa-shopping-cart"></i>
+			<span class="badge badge-primary" id="cart-count"></span>
+		</a>
+	 </li>
 	{%- for item in top_bar_items -%}
 		{% if not item.parent_label and item.right -%}
 			{{ render_item(item, parent=True) }}
