@@ -88,8 +88,9 @@
   padding: 12px 16px;
   background-color: #f1f1f1;
   cursor: pointer;
-  width: 160px;
+  width: 150px;
   margin-bottom: 5px;
+  font-size: 12px;
 }
 /* Add a light grey background on mouse-over */
 .filterdiv-btn:hover {

@@ -5,20 +5,37 @@ if (window.location.href.indexOf("orders") > -1) {
 	} catch {}
 }
 
-if (window.location.href.indexOf("cart") > -1) {
-	try {
-        var weiter_btn = $('<button class="btn btn-secondary" type="button">Weiter einkaufen</button>')
-        weiter_btn.on("click", function() {
-			window.location.href = "/B2B/shop";
-		});
-        var btn_area = $('.page-header-actions-block');
-        btn_area.append(weiter_btn);
-	} catch {}
-}
+if (window.location.href.indexOf("invoices") > -1) {
+        try {
+            var btn = document.getElementById("pay-for-order");
+            btn.classList.add("hidden");
+            
+        } catch {}
+    }
 
 frappe.ready(function() {
 	if (frappe.is_user_logged_in()) {
         setTimeout(function(){ $(".cart-icon").show(); }, 500);
+    }
+    if (window.location.href.indexOf("cart") > -1) {
+        try {
+            frappe.call({
+                "method": "b2bshop.utils.get_weiter_btn",
+                "args": {},
+                "async": false,
+                "callback": function(response) {
+                    var btn_txt = response.message;
+                    console.log(btn_txt);
+                    var weiter_btn = $('<button class="btn btn-secondary" type="button">' + btn_txt + '</button>')
+                    weiter_btn.on("click", function() {
+                        window.location.href = "/B2B/shop";
+                    });
+                    var btn_area = $('.page-header-actions-block');
+                    btn_area.append(weiter_btn);
+                }
+            });
+            
+        } catch {}
     }
 });
 
