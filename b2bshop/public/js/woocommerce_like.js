@@ -1,17 +1,24 @@
 if (window.location.href.indexOf("orders") > -1) {
-	try {
-		var btn = document.getElementById("pay-for-order");
-		btn.classList.add("hidden");
-	} catch {}
+    try {
+        var btn = document.getElementById("pay-for-order");
+        btn.classList.add("hidden");
+    } catch {}
 }
 
 if (window.location.href.indexOf("invoices") > -1) {
-        try {
-            var btn = document.getElementById("pay-for-order");
-            btn.classList.add("hidden");
-            
-        } catch {}
-    }
+    try {
+        var btn = document.getElementById("pay-for-order");
+        btn.classList.add("hidden");
+        
+    } catch {}
+}
+
+if (window.location.href.indexOf("me") > -1) {
+    try {
+        $("[href='/third_party_apps']").parent().remove();
+        
+    } catch {}
+}
 
 frappe.ready(function() {
 	if (frappe.is_user_logged_in()) {

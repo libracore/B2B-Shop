@@ -1,13 +1,21 @@
-<div class="row">
-	<div id="myBtnContainer">
-	  <button class="filterdiv-btn active" onclick="filterSelection('all')"> Show all</button>
-	  <button class="filterdiv-btn" onclick="filterSelection('PRE')"> Pre Order</button>
-	  {% for group in get_all_item_groups() %}
-		<button class="filterdiv-btn" onclick="filterSelection('{{ group[0] }}')"> {{ group[0] }}</button>
-	  {% endfor %}
-	</div>
-</div>
-<div class="row">
+<div class="" id="myBtnContainer">
+    <button class="filterdiv-btn active" onclick="filterSelection('all')"> Show all</button>
+    <button class="filterdiv-btn" onclick="filterSelection('PRE')"> Pre Order</button>
+    {% for group in get_all_item_groups() %}
+        <button class="filterdiv-btn" onclick="filterSelection('{{ group[0] }}')"> {{ group[0] }}</button>
+    {% endfor %}
+    <div class="dropdown" id="myBtnContainerDropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Ansicht wählen
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#" onclick="filterSelection('all')">Show all</a>
+            <a class="dropdown-item" href="#" onclick="filterSelection('PRE')">Pre Order</a>
+            {% for group in get_all_item_groups() %}
+                <a class="dropdown-item" href="#" onclick="filterSelection('{{ group[0] }}')">{{ group[0] }}</a>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 <div class="row">
 	<!-- Items with attribute Size -->
@@ -162,7 +170,7 @@
 			<h2>{{ _("Your Order is ready") }}</h2>
 		</div>
 		<div class="modal-body">
-			<p>{{ _("You can now complete your purchase in the") }} <a href="/cart">{{ _("shopping cart.") }}</a></p>
+			<p>{{ _("You can now complete your purchase in the") }} <a href="/cart">{{ _("shopping cart.") }}</a> or <a href="/B2B/shop">continue shopping</a></p>
 		</div>
 	</div>  
 </div> 

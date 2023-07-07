@@ -68,6 +68,24 @@
 
 /*------------------------------------------------*/
 /* WOOCOMMERCE LIKE */
+#myBtnContainer {
+    padding-bottom: 15px;
+    justify-content: space-between;
+    display: flex;
+}
+@media screen and (max-width:500px){
+    .filterdiv-btn {
+        display:none;
+    }
+    #myBtnContainer {
+        justify-content: center;
+    }
+}
+@media screen and (min-width:501px){
+    #myBtnContainerDropdown {
+        display:none;
+    }
+}
 .filterdiv-container {
     overflow: hidden;
 }
@@ -120,8 +138,7 @@ body {
 .img-overlay {
   position: absolute;
   bottom: 0;
-  background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  background: rgba(143,188,143);
   color: #f1f1f1;
   width: 100%;
   transition: .5s ease;
@@ -146,6 +163,7 @@ body {
     background-color: black;
     color: white;
 	height: 100px;
+    border-bottom: none;
 }
 /* Modal Body */
 .modal-body {padding: 2px 16px;}
@@ -153,6 +171,17 @@ body {
 .modal-content {
     position: relative;
     background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+#goToCart .modal-content {
+    position: relative;
+    background: rgba(143,188,143);
     margin: auto;
     padding: 0;
     border: 1px solid #888;
