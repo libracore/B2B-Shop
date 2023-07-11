@@ -364,5 +364,13 @@ body {
     .overlay a {font-size: 20px}
 } 
 
+.dropdown-toggle {
+    min-width: 150px !important;
+}
+
+.dropdown-menu {
+    max-height: 280px;
+    overflow-y: auto !important;
+}
 
 

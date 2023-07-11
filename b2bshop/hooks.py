@@ -39,25 +39,30 @@ home_page = "login"
 
 # website user home page (by Role)
 role_home_page = {
-	"Customer": "start"
+    "Customer": "start"
 }
 
 website_context = {
-	"base_template_path": "templates/b2b_base.html"
+    "base_template_path": "templates/b2b_base.html"
 }
 
 jenv = {
-	"methods": [
-		"get_all_items_of_refsize_for_webshop:b2bshop.utils.get_all_items_of_refsize_for_webshop",
-		"get_item_details:b2bshop.utils.get_item_details",
-		"get_all_item_groups:b2bshop.utils.get_all_item_groups",
-		"get_parent_group:b2bshop.utils.get_parent_group",
-		"get_all_corresponding_sizes:b2bshop.utils.get_all_corresponding_sizes",
-		"get_item_stock:b2bshop.utils.get_item_stock",
-		"get_item_slideshow:b2bshop.utils.get_item_slideshow",
-		"get_slideshow_images:b2bshop.utils.get_slideshow_images",
-		"get_all_items_without_size:b2bshop.utils.get_all_items_without_size"
-	]
+    "methods": [
+        "get_all_items_of_refsize_for_webshop:b2bshop.utils.get_all_items_of_refsize_for_webshop",
+        "get_item_details:b2bshop.utils.get_item_details",
+        "get_all_item_groups:b2bshop.utils.get_all_item_groups",
+        "get_parent_group:b2bshop.utils.get_parent_group",
+        "get_all_corresponding_sizes:b2bshop.utils.get_all_corresponding_sizes",
+        "get_item_stock:b2bshop.utils.get_item_stock",
+        "get_item_slideshow:b2bshop.utils.get_item_slideshow",
+        "get_slideshow_images:b2bshop.utils.get_slideshow_images",
+        "get_all_items_without_size:b2bshop.utils.get_all_items_without_size",
+        "get_all_colors:b2bshop.utils.get_all_colors",
+        "get_all_sole_color:b2bshop.utils.get_all_sole_color",
+        "get_all_size:b2bshop.utils.get_all_size",
+        "get_color:b2bshop.utils.get_color",
+        "get_sole_color:b2bshop.utils.get_sole_color"
+    ]
 }
 
 

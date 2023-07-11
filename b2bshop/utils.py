@@ -151,6 +151,14 @@ def get_color(item):
     color = frappe.db.sql(sql_query, as_list=True)
     return color
 
+def get_all_colors():
+    sql_query = """SELECT DISTINCT `attribute_value`
+        FROM `tabItem Variant Attribute`
+        WHERE `attribute` = 'Colour'
+        ORDER BY `attribute_value` ASC"""
+    colors = frappe.db.sql(sql_query, as_list=True)
+    return colors
+
 def get_season(item):
     sql_query = """SELECT `attribute_value`
         FROM `tabItem Variant Attribute`
@@ -167,22 +175,44 @@ def get_sole_color(item):
     sole_color = frappe.db.sql(sql_query, as_list=True)
     return sole_color
 
+def get_all_sole_color():
+    sql_query = """SELECT DISTINCT `attribute_value`
+        FROM `tabItem Variant Attribute`
+        WHERE `attribute` = 'Sole Colour'
+        ORDER BY `attribute_value` ASC"""
+    sole_colors = frappe.db.sql(sql_query, as_list=True)
+    return sole_colors
+
+def get_all_size():
+    sql_query = """SELECT DISTINCT `attribute_value`
+        FROM `tabItem Variant Attribute`
+        WHERE `attribute` = 'Size'
+        ORDER BY `attribute_value` ASC"""
+    sizes = frappe.db.sql(sql_query, as_list=True)
+    return sizes
+
 def get_warehouses():
     sql_query = """SELECT `warehouse`
         FROM `tabB2B Warehouse`"""
     warehouses = frappe.db.sql(sql_query, as_list=True)
     return warehouses
 
-def get_item_stock(item):
+def get_item_stock(item, true_or_false=None):
     qty = 0
     warehouses = get_warehouses()
     for warehouse in warehouses:
         bin = get_bin(item, warehouse[0])
         qty = qty + bin.actual_qty
-    if qty > 0:
-        return '<span style="color: green;"><i class="fa fa-check"></i></span>'
+    if not true_or_false:
+        if qty > 0:
+            return '<span style="color: green;"><i class="fa fa-check"></i></span>'
+        else:
+            return '<span style="color: red;"><i class="fa fa-times"></i></span>'
     else:
-        return '<span style="color: red;"><i class="fa fa-times"></i></span>'
+        if qty > 0:
+            return True
+        else:
+            return False
 
 def get_item_stock_of_default(item, warehouse):
     qty = 0
