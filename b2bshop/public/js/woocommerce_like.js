@@ -52,7 +52,7 @@ frappe.ready(function() {
 filterSelection("all")
 function filterSelectionGroup(c) {
     var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
+    if (current){current[0].className = current[0].className.replace(" active", "");}
     $("#dropdownMenuButtonSize").text('Grösse wählen');
     $("#dropdownMenuButtonColor").text('Farbe wählen');
     $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
@@ -61,7 +61,7 @@ function filterSelectionGroup(c) {
 }
 function filterSelectionColor(c) {
     var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
+    if (current){current[0].className = current[0].className.replace(" active", "");}
     $("#dropdownMenuButtonSize").text('Grösse wählen');
     $("#dropdownMenuButtonGroup").text('Gruppe wählen');
     $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
@@ -70,7 +70,7 @@ function filterSelectionColor(c) {
 }
 function filterSelectionSoleColor(c) {
     var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
+    if (current){current[0].className = current[0].className.replace(" active", "");}
     $("#dropdownMenuButtonSize").text('Grösse wählen');
     $("#dropdownMenuButtonGroup").text('Gruppe wählen');
     $("#dropdownMenuButtonColor").text('Farbe wählen');
@@ -79,7 +79,7 @@ function filterSelectionSoleColor(c) {
 }
 function filterSelectionSize(c) {
     var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
+    if (current){current[0].className = current[0].className.replace(" active", "");}
     $("#dropdownMenuButtonColor").text('Farbe wählen');
     $("#dropdownMenuButtonGroup").text('Gruppe wählen');
     $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
