@@ -52,25 +52,31 @@ frappe.ready(function() {
 filterSelection("all")
 function filterSelectionGroup(c) {
     var current = document.getElementsByClassName("active");
-    if (current){current[0].className = current[0].className.replace(" active", "");}
+    current[0].className = current[0].className.replace(" active", "");
     $("#dropdownMenuButtonSize").text('Grösse wählen');
     $("#dropdownMenuButtonColor").text('Farbe wählen');
     $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
     $("#dropdownMenuButtonGroup").text(c);
     filterSelection(c);
 }
-function filterSelectionColor(c) {
+function filterSelectionColor(c, button) {
     var current = document.getElementsByClassName("active");
-    if (current){current[0].className = current[0].className.replace(" active", "");}
+    var menuTwo = document.getElementsByClassName("menu-two");
+    clearSelectedFilter();
+    menuTwo[0].classList.add('selectedColor');
+    current[0].className = current[0].className.replace(" active", "");
     $("#dropdownMenuButtonSize").text('Grösse wählen');
     $("#dropdownMenuButtonGroup").text('Gruppe wählen');
     $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
     $("#dropdownMenuButtonColor").text(c);
     filterSelection(c);
 }
-function filterSelectionSoleColor(c) {
+function filterSelectionSoleColor(c, button) {
     var current = document.getElementsByClassName("active");
-    if (current){current[0].className = current[0].className.replace(" active", "");}
+    var menuThree = document.getElementsByClassName("menu-three");
+    clearSelectedFilter()
+    menuThree[0].classList.add('selectedColor');
+    current[0].className = current[0].className.replace(" active", "");
     $("#dropdownMenuButtonSize").text('Grösse wählen');
     $("#dropdownMenuButtonGroup").text('Gruppe wählen');
     $("#dropdownMenuButtonColor").text('Farbe wählen');
@@ -79,7 +85,10 @@ function filterSelectionSoleColor(c) {
 }
 function filterSelectionSize(c) {
     var current = document.getElementsByClassName("active");
-    if (current){current[0].className = current[0].className.replace(" active", "");}
+    var menuOne = document.getElementsByClassName("menu-one");
+    clearSelectedFilter()
+    menuOne[0].classList.add('selectedSize');
+    current[0].className = current[0].className.replace(" active", "");
     $("#dropdownMenuButtonColor").text('Farbe wählen');
     $("#dropdownMenuButtonGroup").text('Gruppe wählen');
     $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
@@ -106,6 +115,21 @@ function filterSelection(c) {
             }
         }
     }
+}
+
+function clearSelectedFilter() {
+    var selectedColor = document.querySelectorAll('.selectedColor');
+    var selectedSize = document.querySelectorAll('.selectedSize');
+    
+    selectedColor.forEach(function(selected) {
+        selected.classList.remove('selectedColor');
+    });
+    
+    if (selectedSize[0]) {
+		console.log("in the if")
+		selectedSize[0].classList.remove('selectedSize');
+	}
+    
 }
 
 // Show filtered elements

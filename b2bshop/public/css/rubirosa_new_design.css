@@ -70,9 +70,112 @@
 /* WOOCOMMERCE LIKE */
 #myBtnContainer {
     padding-bottom: 15px;
-    justify-content: space-between;
     display: flex;
+    justify-content: space-between;
 }
+
+.menu-one {
+	width: 440px !important;
+	height: 31px !important;
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	background: #F3F2F0 !important;
+	border-radius: 0 !important;
+	border: none !important;
+	text-transform: uppercase !important;
+	font-size: 12px !important;
+	letter-spacing: 3px !important;
+	color: #000 !important;
+}
+
+.menu-two {
+	width: 209px !important;
+	height: 31px !important;
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	background: #fff !important;
+	border-radius: 0 !important;
+	border: 1.6px solid #000 !important;
+	text-transform: uppercase !important;
+	font-size: 12px !important;
+	letter-spacing: 3px !important;
+}
+
+.menu-three {
+	width: 212px !important;
+	height: 31px !important;
+	display: flex !important;
+	justify-content: space-between !important;
+	align-items: center !important;
+	background: #fff !important;
+	border-radius: 0 !important;
+	border: 1.6px solid #000 !important;
+	text-transform: uppercase !important;
+	font-size: 12px !important;
+	letter-spacing: 3px !important;
+}
+
+.dropdown-one {
+    background: rgb(243, 242, 240) none repeat scroll 0% 0% !important;
+    width: 440px !important;
+    border: none !important;
+    margin-top: 10px !important;
+    letter-spacing: 3px !important;
+    max-height: auto !important;
+}
+
+.dropdown-two {
+	width: 209px;
+	letter-spacing: 3px !important;
+	font-size: 14px !important;
+    margin-top: 10px !important;
+}
+
+.dropdown-three {
+	width: 212px;
+	letter-spacing: 3px !important;
+	font-size: 14px !important;
+    margin-top: 10px !important;
+}
+
+.dropdown-two a, .dropdown-three a {
+	padding: 4px 12px !important;
+}
+
+.show > .btn-secondary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+.show > .btn-secondary.dropdown-toggle {
+    color: #000;
+}
+
+.menu-one:hover {
+	background: #ECEAE6 !important;
+	cursor: pointer;
+}
+
+.dropdown-one a:hover{
+    background: #ECEAE6 !important;
+}
+
+.menu-two:hover, .menu-three:hover {
+    color: #fff !important;
+    background-color: #000 !important;
+    cursor: pointer;
+}
+
+.selectedColor, .dropdown-two a:hover, .dropdown-three a:hover{
+    color: #fff !important;
+    background-color: #000 !important;
+}
+
+.selectedSize {
+	font-weight: bold;
+}
+
 @media screen and (max-width:500px){
     .filterdiv-btn {
         display:none;
@@ -158,27 +261,111 @@ body {
 }
  /*-----------------------------------------------------------------------------------*/
   /* Modal Header */
-.modal-header {
-    padding: 2px 16px;
-    background-color: black;
-    color: white;
-	height: 100px;
-    border-bottom: none;
+.modal {
+	background-color: #F3F2F0;
 }
+
+.modal-header {
+    padding: 0px;
+	background-color: white;
+	color: black;
+	border-bottom: none;
+	display: flex;
+	align-items: center;
+	margin-top: 0px;
+	margin-bottom: 10px;
+}
+
+.modal-header h2{
+	font-size: 1.2rem;
+}
+
 /* Modal Body */
-.modal-body {padding: 2px 16px;}
-/* Modal Content */
+.modal-body {
+	padding: 2px 16px; 
+	padding-top: 5px !important;
+}
+
+.mySlides img {
+    width: 439px !important;
+    height: 439px !important;
+}
+
+/*Modal Content */
 .modal-content {
     position: relative;
     background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 80%;
+    margin: 35px auto;
+    padding: 20px 15px;
+    border: none;
+    border-radius: 0px;
+    width: 75%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     animation-name: animatetop;
     animation-duration: 0.4s;
+    /*height: 100%; */
 }
+
+.size-chart {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.size-chart div:nth-child(1) {
+    /* Your styles here */
+    margin-left: 15px !important;
+}
+
+.size-chart p {
+    margin: 0px 0px 10px 0px;
+    font-size: 14px;
+}
+
+.size-chart input {
+    margin-bottom: 5px;
+    border-radius: 0px;
+}
+
+.size-button-chart {
+    margin: 76px 0px 76px 0px;
+	display: flex;
+	flex-wrap: wrap;
+	letter-spacing: 1.5px;
+	padding-right: 125px;
+}
+
+.size-button-chart button{
+    background-color: black;
+	color: white;
+	border: none;
+	padding: 3px;
+	width: 212px;
+	height: 31px;
+	letter-spacing: 1.5px;
+}
+
+.size-button-chart p{
+    display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 50%;
+	margin-bottom: 0px;
+}
+
+.item-description {
+	font-size: 12px;
+	width: 59%;
+	line-height: 24px;
+	padding-left: 15px;
+}
+
+.item-description ul {
+	padding: 0px !important;
+	padding-left: 12px !important;
+	margin-top: -28px !important;
+	margin-bottom: -24px;
+}
+
 #goToCart .modal-content {
     position: relative;
     background: rgba(143,188,143);
@@ -294,8 +481,14 @@ body {
 
 
 .close {
-	color: white;
-	opacity: 1;
+	font-size: 3rem !important;
+	line-height: 1 !important;
+	text-shadow: 0 1px 0 #999 !important;
+	opacity: 0.3 !important;
+	color: black !important;
+	padding: 0px !important;
+	margin-top: -17px !important;
+	margin-right: 5px !important;
 }
 
 
@@ -358,10 +551,76 @@ body {
 
 
 
+/* When the height of the screen is less than 1611 pixels change modal item description*/
+@media screen and (max-height:1611px) {
+	
+	.item-description ul {
+		margin-top: 60px;
+	}
+	
+	.size-button-chart {
+		margin-top: 35	px !important;
+	}
 
+}
 /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-@media screen and (max-height: 450px) {
+@media screen and (max-height:450px) {
     .overlay a {font-size: 20px}
+    
+    .modal-content {
+		padding: 20px 20px;
+    }
+    
+    .close {
+		font-size: 1rem !important;
+		margin-top: -20px !important;
+    }
+    .modal-header h2 {
+		font-size: 0.8rem;
+	}
+	
+	.modal-body .row > div:nth-child(1) {
+		min-height: auto;
+    }
+        
+    .modal-body .row > div:nth-child(2) {
+		padding-left: 15px;
+    }
+    
+    .size-chart {
+		justify-content: space-evenly;
+		margin-top: 20px;
+	}
+	.size-chart div{
+		padding: 0px;
+		flex: 0 0 30%;
+		max-width: 33.33333% !important;
+		margin-left: 0px !important;
+	}
+	
+    .size-button-chart{
+		padding: 0px;
+		margin: 30px 0px 30px 0px;
+	}
+	
+    .size-button-chart button{
+		height: 34px;
+		width: 100%;
+	}
+    .size-button-chart p{
+		width: 70%;
+		font-size: 10px;
+		margin-top: 15px;
+	}
+	
+	.item-description {
+		font-size: 10px;
+		width: 90%;
+		padding: 0px;
+		margin-bottom: 50px;
+		line-height: 20px;
+		margin-top: -58px;
+    }
 } 
 
 .dropdown-toggle {
