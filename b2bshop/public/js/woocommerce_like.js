@@ -49,115 +49,113 @@ frappe.ready(function() {
 
 /* Filter section */
 /*---------------------------------------------------------*/
-filterSelection("all")
-function filterSelectionGroup(c) {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    $("#dropdownMenuButtonSize").text('Grösse wählen');
-    $("#dropdownMenuButtonColor").text('Farbe wählen');
-    $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
-    $("#dropdownMenuButtonGroup").text(c);
-    filterSelection(c);
-}
-function filterSelectionColor(c, button) {
-    var current = document.getElementsByClassName("active");
-    var menuTwo = document.getElementsByClassName("menu-two");
-    clearSelectedFilter();
-    menuTwo[0].classList.add('selectedColor');
-    current[0].className = current[0].className.replace(" active", "");
-    $("#dropdownMenuButtonSize").text('Grösse wählen');
-    $("#dropdownMenuButtonGroup").text('Gruppe wählen');
-    $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
-    $("#dropdownMenuButtonColor").text(c);
-    filterSelection(c);
-}
-function filterSelectionSoleColor(c, button) {
-    var current = document.getElementsByClassName("active");
-    var menuThree = document.getElementsByClassName("menu-three");
-    clearSelectedFilter()
-    menuThree[0].classList.add('selectedColor');
-    current[0].className = current[0].className.replace(" active", "");
-    $("#dropdownMenuButtonSize").text('Grösse wählen');
-    $("#dropdownMenuButtonGroup").text('Gruppe wählen');
-    $("#dropdownMenuButtonColor").text('Farbe wählen');
-    $("#dropdownMenuButtonSoleColor").text(c);
-    filterSelection(c);
-}
-function filterSelectionSize(c) {
-    var current = document.getElementsByClassName("active");
-    var menuOne = document.getElementsByClassName("menu-one");
-    clearSelectedFilter()
-    menuOne[0].classList.add('selectedSize');
-    current[0].className = current[0].className.replace(" active", "");
-    $("#dropdownMenuButtonColor").text('Farbe wählen');
-    $("#dropdownMenuButtonGroup").text('Gruppe wählen');
-    $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
-    $("#dropdownMenuButtonSize").text(c);
-    filterSelection(c);
-}
-function filterSelection(c) {
-    var x, i;
-    x = document.getElementsByClassName("filterDiv");
-    if (c == "all") c = "";
-    // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
-    for (i = 0; i < x.length; i++) {
-        w3RemoveClass(x[i], "show");
-        w3AddClass(x[i].parentNode.parentNode, "hidden")
-        if (c == '') {
-            if ((x[i].className.indexOf(c) > -1)&&(x[i].className.indexOf('PRE') <= -1)) {
-                w3AddClass(x[i], "show");
-                w3RemoveClass(x[i].parentNode.parentNode, "hidden");
-            }
-        } else {
-            if (x[i].className.indexOf(c) > -1) {
-                w3AddClass(x[i], "show");
-                w3RemoveClass(x[i].parentNode.parentNode, "hidden");
-            }
-        }
+show_all_elements();
+
+function show_all_elements() {
+    hide_all_elements();
+    elemente = document.getElementsByClassName("filterDiv");
+    for (var i = 0; i < elemente.length; i++) {
+        addFilterClass(elemente[i], "show");
+        removeFilterClass(elemente[i].parentNode.parentNode, "hidden");
     }
 }
 
-function clearSelectedFilter() {
-    var selectedColor = document.querySelectorAll('.selectedColor');
-    var selectedSize = document.querySelectorAll('.selectedSize');
+function hide_all_elements() {
+    elemente = document.getElementsByClassName("filterDiv");
+    for (var i = 0; i < elemente.length; i++) {
+        removeFilterClass(elemente[i], "show");
+        addFilterClass(elemente[i].parentNode.parentNode, "hidden");
+    }
+}
+
+function reset_all_filters() {
+    var filter_doms = document.getElementsByClassName("filterContainer");
+    for (var i = 0; i < filter_doms.length; i++) {
+        if (filter_doms[i].dataset.filtertype == "Size") {
+            $(filter_doms[i].childNodes[1]).text("Show all");
+        } else if (filter_doms[i].dataset.filtertype == "Color") {
+            $(filter_doms[i].childNodes[1]).text("Show all");
+        } else if (filter_doms[i].dataset.filtertype == "SoleColor") {
+            $(filter_doms[i].childNodes[1]).text("Show all");
+        } else if (filter_doms[i].dataset.filtertype == "Group") {
+            $(filter_doms[i].childNodes[1]).text("Show all");
+        }
+    }
+    show_all_elements();
+}
+
+function show_based_on_filter(self, value) {
+    if (['sole-color-all', 'color-all', 'size-all', 'Show-all'].includes(value)) {
+        $($(self)[0].parentNode.parentNode.childNodes[1]).text('Show all')
+    } else {
+        value = value.replace("size-", "").replace("color-", "").replace("sole-", "");
+        $($(self)[0].parentNode.parentNode.childNodes[1]).text(value);
+    }
     
-    selectedColor.forEach(function(selected) {
-        selected.classList.remove('selectedColor');
-    });
+    var filter_doms = document.getElementsByClassName("filterContainer");
+    var filters = []
     
-    if (selectedSize[0]) {
-		console.log("in the if")
-		selectedSize[0].classList.remove('selectedSize');
-	}
+    for (var i = 0; i < filter_doms.length; i++) {
+        if (!['show all'].includes(filter_doms[i].childNodes[1].innerText.toLowerCase())) {
+            if (filter_doms[i].dataset.filtertype == "Size") {
+                filters.push("size-" + filter_doms[i].childNodes[1].innerText.toLowerCase());
+            } else if (filter_doms[i].dataset.filtertype == "Color") {
+                filters.push("color-" + filter_doms[i].childNodes[1].innerText.toLowerCase());
+            } else if (filter_doms[i].dataset.filtertype == "SoleColor") {
+                filters.push("sole-color-" + filter_doms[i].childNodes[1].innerText.toLowerCase());
+            } else {
+                // group
+                filters.push(filter_doms[i].childNodes[1].innerText.toLowerCase());
+            }
+        }
+    }
+    
+    hide_all_elements();
+    
+    if (filters.length < 2) {
+        for (var filterValue = 0; filterValue < filters.length; filterValue++) {
+            elemente = document.getElementsByClassName("filterDiv");
+            for (var elmnt = 0; elmnt < elemente.length; elmnt++) {
+                if (elemente[elmnt].className.indexOf(filters[filterValue]) > -1) {
+                    addFilterClass(elemente[elmnt], "show");
+                    removeFilterClass(elemente[elmnt].parentNode.parentNode, "hidden");
+                }
+            }
+        }
+        
+        if (filters.length < 1) {
+            show_all_elements();
+        }
+    } else {
+        elemente = document.getElementsByClassName("filterDiv");
+        for (var elmnt = 0; elmnt < elemente.length; elmnt++) {
+            var not_found = false;
+            for (var filterValue = 0; filterValue < filters.length; filterValue++) {
+                if (elemente[elmnt].className.indexOf(filters[filterValue]) > -1) {
+                    //filter found, all good
+                } else {
+                    not_found = true;
+                }
+            }
+            if (!not_found) {
+                addFilterClass(elemente[elmnt], "show");
+                removeFilterClass(elemente[elmnt].parentNode.parentNode, "hidden");
+            }
+        }
+    }
     
 }
 
 // Show filtered elements
-function w3AddClass(element, name) {
+function addFilterClass(element, name) {
     element.classList.add(name);
 }
 
 // Hide elements that are not selected
-function w3RemoveClass(element, name) {
+function removeFilterClass(element, name) {
     element.classList.remove(name);
 }
 
-// Add active class to the current control button (highlight it)
-try {
-    var btnContainer = document.getElementById("myBtnContainer");
-    var btns = btnContainer.getElementsByClassName("filterdiv-btn");
-    for (var i = 0; i < btns.length; i++) {
-      btns[i].addEventListener("click", function() {
-        var current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
-        $("#dropdownMenuButtonSize").text('Grösse wählen');
-        $("#dropdownMenuButtonColor").text('Farbe wählen');
-        $("#dropdownMenuButtonGroup").text('Gruppe wählen');
-        $("#dropdownMenuButtonSoleColor").text('Solenfarbe wählen');
-      });
-    }
-} catch {}
 /*----------------------------------------------------------------------------------*/
 /* modal section */
 /*------------------------------------------------------------------------------------*/
@@ -253,15 +251,27 @@ function doPlaceOrderWithTimeout(item, value, i, last=false) {
 
 // Next/previous controls
 function plusSlides(n, item) {
-    showSlides(slideIndex += n, item);
+    var slideIndex = 0;
+    var slide_parent = document.getElementsByClassName("slideshow-container-" + item);
+    var slides = slide_parent[0].getElementsByClassName("mySlides");
+    var dots = slide_parent[0].getElementsByClassName("demo");
+    for (i = 0; i < dots.length; i++) {
+        if ($(dots[i]).hasClass("active")) {
+            slideIndex = i + 1;
+        }
+    }
+    slideIndex += n;
+    showSlides(slideIndex, item);
 }
 
 // Thumbnail image controls
 function currentSlide(n, item) {
-    showSlides(slideIndex = n, item);
+    var slideIndex = n;
+    showSlides(slideIndex, item);
 }
 
 function showSlides(n, item) {
+    var slideIndex = n;
     var i;
     var slide_parent = document.getElementsByClassName("slideshow-container-" + item);
     var slides = slide_parent[0].getElementsByClassName("mySlides");
@@ -274,6 +284,7 @@ function showSlides(n, item) {
     for (i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
+    
     slides[slideIndex-1].style.display = "block";
     dots[slideIndex-1].className += " active";
 }

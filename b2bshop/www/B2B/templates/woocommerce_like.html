@@ -1,61 +1,80 @@
 
-<div class="" id="myBtnContainer">
-    <button class="filterdiv-btn active" onclick="filterSelection('all')"> Show all</button>
-    <button class="filterdiv-btn" onclick="filterSelection('PRE')"> Pre Order</button>
-    {% for group in get_all_item_groups() %}
-        <button class="filterdiv-btn" onclick="filterSelection('{{ group[0] }}')"> {{ group[0] }}</button>
-    {% endfor %}
-    <div class="dropdown" id="myBtnContainerDropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtonGroup" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Gruppe wählen
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonGroup">
-            <a class="dropdown-item" href="#" onclick="filterSelectionGroup('all')">Show all</a>
-            <a class="dropdown-item" href="#" onclick="filterSelectionGroup('PRE')">Pre Order</a>
-            {% for group in get_all_item_groups() %}
-                <a class="dropdown-item" href="#" onclick="filterSelectionGroup('{{ group[0] }}')">{{ group[0] }}</a>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+<!--
 <div class="" id="myBtnContainer" style="padding-right: 200px;">
-    <div class="dropdown" id="size_dropdown_filter" style="min-width: 150px;">
-        <button class="btn btn-secondary dropdown-toggle menu-one" type="button" id="dropdownMenuButtonSize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Grösse wählen
-        </button>
-        <div class="dropdown-menu dropdown-one" aria-labelledby="dropdownMenuButtonSize"  style="min-width: 150px;">
-            {% for size in get_all_size() %}
-                {% if size[0] %}
-                <a class="dropdown-item" href="#" onclick="filterSelectionSize('{{ size[0] }}')">{{ size[0] }}</a>
-                {% endif %}
-            {% endfor %}
+-->
+<div class="row">
+    <div class="col-xs-12 col-sm-3">
+        <label class="filterlabel" for="group_dropdown_filter">{{ _("Styles") }}</label>
+        <div class="dropdown filterContainer" id="group_dropdown_filter" data-filterType="Group">
+            <button class="btn btn-secondary dropdown-toggle menu-one" type="button" id="dropdownMenuButtonSize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Show all
+            </button>
+            <div class="dropdown-menu dropdown-one" aria-labelledby="dropdownMenuButtonGroup"  >
+                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'Show-all')">Show all</a>
+                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'PRE')">Pre Order</a>
+                {% for group in get_all_item_groups() %}
+                    <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, '{{ group[0] }}')">{{ group[0] }}</a>
+                {% endfor %}
+            </div>
         </div>
     </div>
-    <div class="dropdown" id="color_dropdown_filter" style="min-width: 150px;">
-        <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Farbe wählen
-        </button>
-        <div class="dropdown-menu dropdown-two" aria-labelledby="dropdownMenuButtonColor"  style="min-width: 150px;">
-            {% for color in get_all_colors() %}
-                {% if color[0] %}
-                <a class="dropdown-item" href="#" onclick="filterSelectionColor('{{ color[0] }}')">{{ color[0] }}</a>
-                {% endif %}
-            {% endfor %}
+    <div class="col-xs-12 col-sm-3">
+        <label class="filterlabel" for="size_dropdown_filter">{{ _("Size") }}</label>
+        <div class="dropdown filterContainer" id="size_dropdown_filter" data-filterType="Size">
+            <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonSize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Show all
+            </button>
+            <div class="dropdown-menu dropdown-two" aria-labelledby="dropdownMenuButtonSize"  >
+                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'size-all')">Show all</a>
+                {% for size in get_all_size() %}
+                    {% if size[0] %}
+                    <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'size-{{ size[0] }}')">{{ size[0] }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </div>
-    <div class="dropdown" id="sole_color_dropdown_filter" style="min-width: 150px;">
-        <button class="btn btn-secondary dropdown-toggle menu-three" type="button" id="dropdownMenuButtonSoleColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Solenfarbe wählen
-        </button>
-        <div class="dropdown-menu dropdown-three" aria-labelledby="dropdownMenuButtonSoleColor"  style="min-width: 150px;">
-            {% for sole_color in get_all_sole_color() %}
-                {% if sole_color[0] %}
-                <a class="dropdown-item" href="#" onclick="filterSelectionSoleColor('{{ sole_color[0] }}')">{{ sole_color[0] }}</a>
-                {% endif %}
-            {% endfor %}
+    <div class="col-xs-12 col-sm-3">
+        <label class="filterlabel" for="color_dropdown_filter">{{ _("Color") }}</label>
+        <div class="dropdown filterContainer" id="color_dropdown_filter" data-filterType="Color">
+            <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Show all
+            </button>
+            <div class="dropdown-menu dropdown-two" aria-labelledby="dropdownMenuButtonColor"  >
+                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'color-all')">Show all</a>
+                {% for color in get_all_colors() %}
+                    {% if color[0] %}
+                    <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'color-{{ color[0] }}')">{{ color[0] }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3">
+        <label class="filterlabel" for="sole_color_dropdown_filter">{{ _("Solecolor") }}</label>
+        <div class="dropdown filterContainer" id="sole_color_dropdown_filter" data-filterType="SoleColor">
+            <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonSoleColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Show all
+            </button>
+            <div class="dropdown-menu dropdown-two" aria-labelledby="dropdownMenuButtonSoleColor"  >
+                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'sole-color-all')">Show all</a>
+                {% for sole_color in get_all_sole_color() %}
+                    {% if sole_color[0] %}
+                    <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'sole-color-{{ sole_color[0] }}')">{{ sole_color[0] }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-12">
+        <button style="float:right; margin-right:5px;" class="btn btn-secondary menu-three" type="button" id="clearAllButton" onclick="reset_all_filters()">
+        Clear all
+        </button>
+    </div>
+</div>
+<div class="row" style="min-height: 15px;"></div>
 <div class="row">
     <!-- Items with attribute Size -->
     {% for item in get_all_items_of_refsize_for_webshop() %}
@@ -64,31 +83,31 @@
                 <a onclick="open_order_modal('modal-{{ item[0] }}')">
                     <div class="img-container filterDiv
                         {% if item_detail[4] == 1 %}
-                            PRE 
+                            pre 
                         {% else %}
                             {% if item_detail[5] == 1 %}
-                                PRE
+                                pre
                             {% else %}
-                                {{ item_detail[2] }} 
+                                {{ item_detail[2].lower() }} 
                                 {% for parent in get_parent_group(item_detail[2]) %}
-                                    {{ parent[0] }} 
+                                    {{ parent[0].lower() }} 
                                 {% endfor %}
                             {% endif %}
                         {% endif %}
                         {% for size in get_all_corresponding_sizes(item[0]) %}
                             {% if get_item_stock(size[1], true_or_false=1) %}
-                                {{ size[0] }}
+                                size-{{ size[0] }}
                             {% endif %}
                         {% endfor %}
                         {% for color in get_color(item[0]) %}
-                            {{ color[0] }}
+                            color-{{ color[0].lower() }}
                         {% endfor %}
                         {% for sole_color in get_sole_color(item[0]) %}
-                            {{ sole_color[0] }}
+                            sole-color-{{ sole_color[0].lower() }}
                         {% endfor %}">
                         <img src="{{ item_detail[0] }}" alt="Picture" class="img-image">
                         <div class="img-overlay"><button class="clear-btn">More Information / Order</button></div>
-                        <center><span>{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% else %}{% if item_detail[5] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}{% endif %}</span></center>
+                        <center><span class="preview-title">{{ item_detail[1] }}<br>&nbsp;{% if item_detail[4] == 1 %}<b style="color: red;">Pre Order Item</b>{% else %}{% if item_detail[5] == 1 %}<b style="color: red;">Pre Order Item</b>{% endif %}{% endif %}</span></center>
                     </div>
                 </a>
                 
@@ -104,8 +123,9 @@
                     </div>
                     <div class="modal-body" style="padding: 0px !important;">
                         <div class="row" style="margin: 0px !important;">
-                            <div class="col-sm-4" style="padding: 0px !important; min-height: 362px;">
-                                    {% set slideshows = get_item_slideshow(item[0]) %}
+                            {% set slideshows = get_item_slideshow(item[0]) %}
+                            <div class="col-sm-4 hidden-xs" style="min-height: 360px;">
+                                    
                                     {% for slideshow in slideshows %}
                                         {% if slideshow[0] == None %}
                                             <img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
@@ -129,23 +149,44 @@
                                         {% endif %}
                                     {% endfor %}
                             </div>
-                            <div class="col-sm-8" style="min-height:200px; padding-left: 40px;">
-								<div class="row">
-									<div class="size-chart">
-										{% for size in get_all_corresponding_sizes(item[0]) %}
-											<div class=" col-xs-4 col-sm-1" style="flex: 0 0 9.5%% !important; padding: 0px !important; margin-right: 15px; max-width: 11.333% !important;">
-												<center><p>{{ size[0] }}</p><input class="form-control item-qty" type="number" id="{{ size[1] }}"  value="0" min="0">
-													{{ get_item_stock(size[1]) }}</center>
-											</div>
-										{% endfor %}
+                            <div class="col-sm-4 visible-xs" style="padding: 0px;">
+                                <img id="myimage-{{ item[0] }}" src="{{ item_detail[0] }}" alt="Picture">
+                            </div>
+                            <div class="col-sm-8" style="min-height:200px;">
+								<div class="row h-100">
+                                    <div class="col-sm-12">
+                                            <div class="row">
+                                            {% for size in get_all_corresponding_sizes(item[0]) %}
+                                                    <div class="col-sm-1 col-xs-3" style="flex: 0 0 9.5%% !important; padding: 0px !important; margin-right: 15px; margin-bottom: 5px;">
+                                                        <center><p style="margin-bottom: 0.5rem;">{{ size[0] }}</p><input class="form-control item-qty" type="number" id="{{ size[1] }}"  value="0" min="0">
+                                                            {{ get_item_stock(size[1]) }}</center>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                    </div>
+									<div class="col-xs-12">
+                                        <div class="row h-100" style="margin-left: -30px;">
+                                            <div class="col-xs-12">
+                                                <div class="row">
+                                                    <div class="col-sm-4 col-xs-12" style="padding-right: 0px;">
+                                                        <button style="background-color: black; color: white; border: none; padding: 3px; width: 100%;" onclick="placeOrder('modal-{{ item[0] }}')">Add to cart</button>
+                                                    </div>
+                                                    <div class="col-sm-2 col-xs-6">
+                                                        <p><span style="color: green;"><i class="fa fa-check"></i> In Stock</span></p>
+                                                    </div>
+                                                    <div class="col-sm-2 col-xs-6">
+                                                        <span style="color: red;"><i class="fa fa-times"></i> Not In Stock</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <div class="item-description" style="padding-bottom: 15px;">
+                                                    {{ item_detail[3] }}
+                                                </div>
+                                            </div>
+                                        </div>
 									</div>
-									<div class="col-xs-12  size-button-chart">
-										<button style="background-color: black; color: white; border: none; padding: 3px;" onclick="placeOrder('modal-{{ item[0] }}')">Add to cart</button>
-										<p><span style="color: green;"><i class="fa fa-check"></i> In Stock</span><br><span style="color: red;"><i class="fa fa-times"></i> Not In Stock</span></p>
-									</div>
-									<div class="item-description">
-										{{ item_detail[3] }}
-									</div>
+									
 								</div>
                             </div>
                         </div> 
@@ -230,8 +271,8 @@
 <div id="goToCart" class="modal">
     <div class="modal-content">
         <div class="modal-header">
+            <h2 style="padding: 15px;">{{ _("Your Order is ready") }}</h2>
             <span class="close" onclick="close_modal('goToCart')">&times;</span>
-            <h2>{{ _("Your Order is ready") }}</h2>
         </div>
         <div class="modal-body">
             <p>{{ _("You can now complete your purchase in the") }} <a href="/cart">{{ _("shopping cart.") }}</a> or <a href="/B2B/shop">continue shopping</a></p>
@@ -242,8 +283,8 @@
 <div id="empty" class="modal">
     <div class="modal-content">
         <div class="modal-header">
+            <h2 style="padding: 15px;">{{ _("Please select at least one item") }}</h2>
             <span class="close" onclick="close_modal('empty')">&times;</span>
-            <h2>{{ _("Please select at least one item") }}</h2>
         </div>
         <div class="modal-body">
             <p>{{ _("To add items to your shopping cart, select at least one item") }}</a></p>

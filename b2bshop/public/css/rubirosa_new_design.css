@@ -65,6 +65,12 @@
 	padding-bottom: 1.6rem;
 }
 
+.badge-primary {
+    color: white !important;
+    background-color: black !important;
+    border-radius: 1rem !important;
+}
+
 
 /*------------------------------------------------*/
 /* WOOCOMMERCE LIKE */
@@ -74,8 +80,30 @@
     justify-content: space-between;
 }
 
+.filterContainer {
+    margin-bottom: 5px;
+}
+
+.filterlabel {
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    font-size: 12px;
+}
+
+.preview-title {
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    font-size: 12px;
+}
+
+.modal {
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    font-size: 12px;
+}
+
 .menu-one {
-	width: 440px !important;
+	width: 250px !important;
 	height: 31px !important;
 	display: flex !important;
 	justify-content: space-between !important;
@@ -90,7 +118,7 @@
 }
 
 .menu-two {
-	width: 209px !important;
+	width: 250px !important;
 	height: 31px !important;
 	display: flex !important;
 	justify-content: space-between !important;
@@ -104,7 +132,9 @@
 }
 
 .menu-three {
+/*
 	width: 212px !important;
+*/
 	height: 31px !important;
 	display: flex !important;
 	justify-content: space-between !important;
@@ -119,7 +149,7 @@
 
 .dropdown-one {
     background: rgb(243, 242, 240) none repeat scroll 0% 0% !important;
-    width: 440px !important;
+    width: 250px !important;
     border: none !important;
     margin-top: 10px !important;
     letter-spacing: 3px !important;
@@ -127,14 +157,16 @@
 }
 
 .dropdown-two {
-	width: 209px;
+	width: 250px;
 	letter-spacing: 3px !important;
 	font-size: 14px !important;
     margin-top: 10px !important;
 }
 
 .dropdown-three {
+/*
 	width: 212px;
+*/
 	letter-spacing: 3px !important;
 	font-size: 14px !important;
     margin-top: 10px !important;
@@ -258,6 +290,9 @@ body {
 .clear-btn {
 	background-color: transparent;
 	border: none;
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    font-size: 12px;
 }
  /*-----------------------------------------------------------------------------------*/
   /* Modal Header */
@@ -367,6 +402,17 @@ body {
 }
 
 #goToCart .modal-content {
+    position: relative;
+    background: rgba(143,188,143);
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+#empty .modal-content {
     position: relative;
     background: rgba(143,188,143);
     margin: auto;
@@ -631,5 +677,7 @@ body {
     max-height: 280px;
     overflow-y: auto !important;
 }
+
+
 
 
