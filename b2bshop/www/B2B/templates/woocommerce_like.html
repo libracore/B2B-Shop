@@ -3,7 +3,7 @@
 <div class="" id="myBtnContainer" style="padding-right: 200px;">
 -->
 <div class="row">
-    <div class="col-xs-12 col-sm-3">
+    <div class="col-xs-12 col-sm-3 col-width">
         <label class="filterlabel" for="group_dropdown_filter">{{ _("Styles") }}</label>
         <div class="dropdown filterContainer" id="group_dropdown_filter" data-filterType="Group">
             <button class="btn btn-secondary dropdown-toggle menu-one" type="button" id="dropdownMenuButtonSize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -21,7 +21,20 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-3">
+    <div class="col-xs-12 col-sm-3 col-width">
+        <label class="filterlabel" for="collection_dropdown_filter">{{ _("Collection") }}</label>
+        <div class="dropdown filterContainer" id="collection_dropdown_filter" data-filterType="Collection">
+            <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonSize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Show all
+            </button>
+            <div class="dropdown-menu dropdown-two" aria-labelledby="dropdownMenuButtonSize"  >
+                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'size-all')">Show all</a>
+                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'men')">Men</a>
+                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'donna')">Women</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-3 col-width">
         <label class="filterlabel" for="size_dropdown_filter">{{ _("Size") }}</label>
         <div class="dropdown filterContainer" id="size_dropdown_filter" data-filterType="Size">
             <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonSize" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-3">
+    <div class="col-xs-12 col-sm-3 col-width">
         <label class="filterlabel" for="color_dropdown_filter">{{ _("Color") }}</label>
         <div class="dropdown filterContainer" id="color_dropdown_filter" data-filterType="Color">
             <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-3">
+    <div class="col-xs-12 col-sm-3 col-width">
         <label class="filterlabel" for="sole_color_dropdown_filter">{{ _("Solecolor") }}</label>
         <div class="dropdown filterContainer" id="sole_color_dropdown_filter" data-filterType="SoleColor">
             <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonSoleColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
