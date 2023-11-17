@@ -51,43 +51,18 @@
         </div>
     </div>
     <div class="col-xs-12 col-sm-3 col-width">
-        <label class="filterlabel" for="color_dropdown_filter">{{ _("Color") }}</label>
-        <div class="dropdown filterContainer" id="color_dropdown_filter" data-filterType="Color">
-            <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Show all
-            </button>
-            <div class="dropdown-menu dropdown-two" aria-labelledby="dropdownMenuButtonColor"  >
-                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'color-all')">Show all</a>
-                {% for color in get_all_colors() %}
-                    {% if color[0] %}
-                    <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'color-{{ color[0] }}')">{{ color[0] }}</a>
-                    {% endif %}
-                {% endfor %}
-            </div>
+         <div class="filterlabel" style="height: 31px !important; "></div>
+        <div class="dropdown filterContainer" >
+            <button style=" margin-right:5px; margin-bottom: 5px !important; " class="btn btn-secondary menu-three" type="button" id="clearAllButton" onclick="reset_all_filters()">
+				Clear all
+			</button>
         </div>
     </div>
     <div class="col-xs-12 col-sm-3 col-width">
-        <label class="filterlabel" for="sole_color_dropdown_filter">{{ _("Solecolor") }}</label>
-        <div class="dropdown filterContainer" id="sole_color_dropdown_filter" data-filterType="SoleColor">
-            <button class="btn btn-secondary dropdown-toggle menu-two" type="button" id="dropdownMenuButtonSoleColor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Show all
-            </button>
-            <div class="dropdown-menu dropdown-two" aria-labelledby="dropdownMenuButtonSoleColor"  >
-                <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'sole-color-all')">Show all</a>
-                {% for sole_color in get_all_sole_color() %}
-                    {% if sole_color[0] %}
-                    <a class="dropdown-item" href="#" onclick="show_based_on_filter(this, 'sole-color-{{ sole_color[0] }}')">{{ sole_color[0] }}</a>
-                    {% endif %}
-                {% endfor %}
-            </div>
+        <div class="filterlabel" style="height: 31px !important; "></div>
+        <div class="dropdown filterContainer" >
+            <button type="button" class="btn btn-secondary asset-platform " onclick="document.location='/asset_platform'">Dashboard</button>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <button style="float:right; margin-right:5px;" class="btn btn-secondary menu-three" type="button" id="clearAllButton" onclick="reset_all_filters()">
-        Clear all
-        </button>
     </div>
 </div>
 <div class="row" style="min-height: 15px;"></div>
