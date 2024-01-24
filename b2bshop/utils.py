@@ -3,12 +3,14 @@ from erpnext.stock.utils import get_bin
 
 
 def get_all_items_of_refsize_for_webshop():
-    sql_query = """SELECT t1.`name`
+    sql_query = """
+        SELECT t1.`name`
         FROM `tabItem` AS t1
         INNER JOIN `tabItem Variant Attribute` AS t2 ON t1.`name` = t2.`parent`
         WHERE t1.`show_variant_in_website` = '1'
-        AND t2.`attribute` = 'Size'
-        AND t2.`attribute_value` = '42'"""
+            AND t2.`attribute` = 'Size'
+            AND t2.`attribute_value` = '42'
+        ORDER BY `t1`.`weightage` DESC;"""
     all_items = frappe.db.sql(sql_query, as_list=True)
     return all_items
 
